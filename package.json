@@ -13,7 +13,7 @@
     "st":   "eslint test/",
     "flow": "flow",
 
-    "check": "npm run st && npm run flow"
+    "check": "npm run st && npm run flow && npm test"
   },
 
   "devDependencies":
