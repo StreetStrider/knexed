@@ -1,5 +1,7 @@
 /* @flow */
 
+var assert = require('assert')
+
 var kx = require('./util/knexconn')()
 var dataset = require('./util/dataset')
 
@@ -19,10 +21,20 @@ ds.then(ds =>
 
 describe('one', () =>
 {
+	var one = require('../one')
 
 	it('works with array', () =>
 	{
-		// var rows = [ { x: 1 } ]
+		return ds
+		.then(ds =>
+		{
+			return ds().select().where('n', 1)
+		})
+		.then(one)
+		.then(row =>
+		{
+			assert(typeof row === 'object')
+			assert(row.n === 1)
+		})
 	})
-
 })
