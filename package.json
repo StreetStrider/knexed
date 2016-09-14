@@ -5,5 +5,15 @@
   "peerDependencies":
   {
     "knex": ">= 0.10"
+  },
+
+  "scripts":
+  {
+    "test": "mocha test/*.test.js"
+  },
+
+  "devDependencies":
+  {
+    "mocha": "3"
   }
 }
