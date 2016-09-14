@@ -10,7 +10,8 @@
   "scripts":
   {
     "test": "mocha  test/*.test.js",
-    "st":   "eslint test/"
+    "st":   "eslint test/",
+    "flow": "flow"
   },
 
   "devDependencies":
@@ -20,6 +21,9 @@
 
     "sqlite3":
       "3",
+
+    "flow-bin":
+      "0.32",
 
     "eslint":
       "^3.5",
