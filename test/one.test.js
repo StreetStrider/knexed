@@ -1,21 +1,19 @@
 /* @flow */
 
-var raw = require('knex').raw
+var kx = require('./util/knexconn')()
+var dataset = require('./util/dataset')
 
-var knexconn = require('./util/knexconn')()
-
-knexconn.schema.createTable('dataset', table =>
+var ds = dataset(kx, table =>
 {
 	table.integer('n')
-})
-.then(() =>
+},
+[
+	{ n: 1 }, { n: 2 }, { n: 3 }
+])
+
+ds.then(ds =>
 {
-	return knexconn('dataset')
-	.insert([ { n: 1 }, { n: 2 }, { n: 3 }])
-})
-.then(() =>
-{
-	return knexconn('dataset').select()
+	return ds().select()
 })
 .then(console.log, console.error)
 
