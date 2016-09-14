@@ -1,6 +1,6 @@
 /* @flow */
 
-var assert = require('assert')
+var expect = require('chai').expect
 
 var kx = require('./util/knexconn')()
 var dataset = require('./util/dataset')
@@ -23,7 +23,7 @@ describe('one', () =>
 {
 	var one = require('../one')
 
-	it('works with array', () =>
+	it('works with dataset', () =>
 	{
 		return ds
 		.then(ds =>
@@ -33,8 +33,9 @@ describe('one', () =>
 		.then(one)
 		.then(row =>
 		{
-			assert(typeof row === 'object')
-			assert(row.n === 1)
+			expect(row).an('object')
+			expect(row).property('n')
+			expect(row.n).a('number')
 		})
 	})
 })
