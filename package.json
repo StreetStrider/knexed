@@ -1,4 +1,9 @@
 {
   "name":    "knexed",
-  "version": "0.0.0"
+  "version": "0.0.0",
+
+  "peerDependencies":
+  {
+    "knex": ">= 0.10"
+  }
 }
