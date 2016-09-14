@@ -9,7 +9,8 @@
 
   "scripts":
   {
-    "test": "mocha test/*.test.js"
+    "test": "mocha  test/*.test.js",
+    "st":   "eslint test/"
   },
 
   "devDependencies":
@@ -18,6 +19,12 @@
       "3",
 
     "sqlite3":
-      "3"
+      "3",
+
+    "eslint":
+      "^3.5",
+
+    "js-outlander":
+      "StrangeTransistor/js-outlander#2.0.8"
   }
 }
