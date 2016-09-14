@@ -12,7 +12,7 @@ describe('one', () =>
 
 	it('works with array', () =>
 	{
-		var rows = [ {x:1} ]
+		// var rows = [ { x: 1 } ]
 	})
 
 })
