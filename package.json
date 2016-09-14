@@ -11,7 +11,9 @@
   {
     "test": "mocha  test/*.test.js",
     "st":   "eslint test/",
-    "flow": "flow"
+    "flow": "flow",
+
+    "check": "npm run st && npm run flow"
   },
 
   "devDependencies":
