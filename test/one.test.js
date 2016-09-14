@@ -1,15 +1,7 @@
 
-var knex = require('knex')
-var raw  = knex.raw
+var raw = require('knex').raw
 
-var knexconn = knex(
-{
-	client: 'sqlite3',
-	connection:
-	{
-		filename: ':memory:'
-	}
-})
+var knexconn = require('./util/knexconn')()
 
 knexconn.select(raw('current_timestamp as ts'))
 // .debug()
