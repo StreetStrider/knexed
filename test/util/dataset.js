@@ -1,5 +1,10 @@
+/* @flow */
 
-module.exports = function dataset (kx, schema, data)
+module.exports = function dataset (
+	kx      /* :Function & Object */,
+	schema  /* :Function */,
+	data    /* :Array<Object> | Object */
+)
 {
 	return kx.schema.createTable('dataset', schema)
 	.then(() =>
@@ -14,5 +19,4 @@ module.exports = function dataset (kx, schema, data)
 			return ds
 		})
 	})
-
 }
