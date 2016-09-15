@@ -1,15 +1,20 @@
 /* @flow */
 
+var next = 1
+
 module.exports = function dataset (
 	kx      /* :Function & Object */,
 	schema  /* :Function */,
 	data    /* :Array<Object> | Object */
 )
 {
-	return kx.schema.createTable('dataset', schema)
+	var name = 'dataset' + next
+	++ next
+
+	return kx.schema.createTable(name, schema)
 	.then(() =>
 	{
-		return () => kx('dataset')
+		return () => kx(name)
 	})
 	.then(ds =>
 	{
