@@ -8,14 +8,28 @@ var one
 	{
 		return rows[0]
 	}
-	else if (rows.length > 1)
-	{
-		throw new TypeError('knexed/one/more-rows')
-	}
-	else
+	else if (rows.length === 0)
 	{
 		throw new TypeError('knexed/one/no-rows')
 	}
+	else
+	{
+		throw new TypeError('knexed/one/more-rows')
+	}
 }
 
-one.maybe = () => {}
+one.maybe = function one__maybe /* ::<T> */ (rows /* :Array<T> */) /* :?T */
+{
+	if (rows.length === 1)
+	{
+		return rows[0]
+	}
+	else if (rows.length === 0)
+	{
+		return null
+	}
+	else
+	{
+		throw new TypeError('knexed/one/more-rows')
+	}
+}
