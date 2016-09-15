@@ -4,7 +4,7 @@ var expect = require('chai').expect
 
 module.exports = function test_error (
 	pattern /* :ErrorPattern */,
-	fn      /* :<T>() => Promise<T> */
+	fn      /* :FnPromise */
 )
 {
 	return fn()
