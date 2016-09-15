@@ -15,9 +15,11 @@
 
   "scripts":
   {
-    "test": "mocha  test/*.test.js",
-    "st":   "eslint test/",
-    "flow": "flow",
+    "st":    "eslint test/",
+    "flow":  "flow",
+
+    "test":                  "mocha -- --check-leaks --recursive test/*.test.js",
+    "cover": "istanbul cover _mocha -- --check-leaks --recursive test/*.test.js",
 
     "check": "npm run st && npm run flow",
     "all":   "npm run check && npm test"
@@ -33,6 +35,9 @@
 
     "sqlite3":
       "3",
+
+    "istanbul":
+      "0.4",
 
     "flow-bin":
       "0.32",
