@@ -22,7 +22,9 @@
     "cover": "istanbul cover _mocha -- --check-leaks --recursive test/*.test.js",
 
     "check": "npm run st && npm run flow",
-    "all":   "npm run check && npm test"
+    "all":   "npm run check && npm test",
+
+    "coveralls": "istanbul-coveralls"
   },
 
   "devDependencies":
@@ -38,6 +40,9 @@
 
     "istanbul":
       "0.4",
+
+    "istanbul-coveralls":
+      "1",
 
     "flow-bin":
       "0.32",
