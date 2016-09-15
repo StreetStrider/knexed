@@ -15,7 +15,7 @@
 
   "scripts":
   {
-    "st":    "eslint test/",
+    "st":    "eslint ./*.js test/",
     "flow":  "flow",
 
     "test":                  "mocha    --check-leaks --recursive test/*.test.js",

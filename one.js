@@ -18,7 +18,8 @@ var one
 	}
 }
 
-one.maybe = function one__maybe /* ::<T> */ (rows /* :Array<T> */) /* :?T */
+one.maybe
+ = function one__maybe /* ::<T> */ (rows /* :Array<T> */) /* :?T */
 {
 	if (rows.length === 1)
 	{
