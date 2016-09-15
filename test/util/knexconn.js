@@ -9,6 +9,7 @@ module.exports = function knexconn ()
 		connection:
 		{
 			filename: ':memory:'
-		}
+		},
+		useNullAsDefault: true
 	})
 }
