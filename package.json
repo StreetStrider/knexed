@@ -18,7 +18,7 @@
     "st":    "eslint test/",
     "flow":  "flow",
 
-    "test":                  "mocha -- --check-leaks --recursive test/*.test.js",
+    "test":                  "mocha    --check-leaks --recursive test/*.test.js",
     "cover": "istanbul cover _mocha -- --check-leaks --recursive test/*.test.js",
 
     "check": "npm run st && npm run flow",
