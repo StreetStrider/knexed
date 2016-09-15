@@ -2,6 +2,12 @@
   "name":    "knexed",
   "version": "0.0.0",
 
+  "description": "knex utilities",
+
+  "author":     "Strider <teamfortresslife@gmail.com>",
+  "license":    "MIT",
+  "repository": "StreetStrider/knexed",
+
   "peerDependencies":
   {
     "knex": ">= 0.10"
