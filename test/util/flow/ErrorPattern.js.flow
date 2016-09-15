@@ -1,0 +1,5 @@
+
+type ErrorPattern =
+{
+	message: string
+}
