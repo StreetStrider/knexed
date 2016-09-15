@@ -1,6 +1,8 @@
 /* @flow */
 
-module.exports = function one /* ::<T> */ (rows /* :Array<T> */) /* :T */
+var one
+ = module.exports
+ = function one /* ::<T> */ (rows /* :Array<T> */) /* :T */
 {
 	if (rows.length === 1)
 	{
@@ -15,3 +17,5 @@ module.exports = function one /* ::<T> */ (rows /* :Array<T> */) /* :T */
 		throw new TypeError('knexed/one/no-rows')
 	}
 }
+
+one.maybe = () => {}
