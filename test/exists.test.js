@@ -54,3 +54,48 @@ describe('exists', () =>
 		})
 	})
 })
+
+describe('exists.not', () =>
+{
+	it('exists.not(rows = n) → false', () =>
+	{
+		return ds
+		.then(ds =>
+		{
+			return ds().select()
+		})
+		.then(exists.not)
+		.then(so =>
+		{
+			expect(so).false
+		})
+	})
+
+	it('exists.not(rows = 1) → false', () =>
+	{
+		return ds
+		.then(ds =>
+		{
+			return ds().select().where('n', 1)
+		})
+		.then(exists.not)
+		.then(so =>
+		{
+			expect(so).false
+		})
+	})
+
+	it('exists.not(rows = 0) → true', () =>
+	{
+		return ds
+		.then(ds =>
+		{
+			return ds().select().where('n', 7)
+		})
+		.then(exists.not)
+		.then(so =>
+		{
+			expect(so).true
+		})
+	})
+})
