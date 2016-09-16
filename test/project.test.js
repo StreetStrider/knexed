@@ -101,16 +101,18 @@ describe('project', () =>
 		})
 	})
 
-	it('project(wrong key)(rows = 0) → throws TypeError', () =>
+	it('project(wrong key)(rows = 0) → {}', () =>
 	{
-		return test_error({ message: 'knexed/project/key-not-present' }, () =>
+		return ds
+		.then(ds =>
 		{
-			return ds
-			.then(ds =>
-			{
-				return ds().select().where('id', 7)
-			})
-			.then(project('wrong_key'))
+			return ds().select().where('id', 7)
+		})
+		.then(project('wrong_key'))
+		.then(proj =>
+		{
+			expect(proj).an('object')
+			expect(proj).empty
 		})
 	})
 
