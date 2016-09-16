@@ -8,6 +8,21 @@
 
 Utilities for [knex](http://knexjs.org/) library.
 
+## API
+Here's examples:
+
+```js
+knex('table').select()
+/* build query … */
+
+/* use one of utilities: */
+.then(one)        // pick exact 1 row
+.then(one.maybe)  // pick 0..1 rows
+.then(exists)     // true/false depending on rows existence
+.then(exists.not) // negated true/false on existence
+.then(count)      // pick rows count
+```
+
 ## flow
 We're providing built-in [Flow](https://flowtype.org/) type definitions.
 
