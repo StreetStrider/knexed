@@ -6,7 +6,7 @@
 [![flowtype](http://img.shields.io/badge/flow-type-EBBF3A.svg?style=flat-square)](#flow)
 [![MIT licensed](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](license.txt)
 
-Utilities for [knex](http://knexjs.org/) library.
+Utilities for [Knex](http://knexjs.org/) library.
 
 ## API
 Here's examples:
