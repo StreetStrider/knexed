@@ -9,11 +9,7 @@ var dataset = require('./util/dataset')
 
 var one = require('../one')
 
-var ds = dataset(kx, table => table.integer('n'),
-[
-	{ n: 1 }, { n: 2 }, { n: 3 }
-])
-
+var ds = dataset.series(kx, 1, 4)
 
 describe('one', () =>
 {

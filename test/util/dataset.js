@@ -2,10 +2,13 @@
 
 var next = 1
 
-module.exports = function dataset (
-	kx      /* :Function & Object */,
-	schema  /* :Function */,
-	data    /* :Array<Object> | Object */
+var dataset
+ = module.exports
+ = function dataset
+(
+	kx     /* :Function & Object */,
+	schema /* :Function */,
+	data   /* :Array<Object> | Object */
 )
 {
 	var name = 'dataset' + next
@@ -24,4 +27,21 @@ module.exports = function dataset (
 			return ds
 		})
 	})
+}
+
+
+var range = require('lodash/range')
+
+dataset.series = function series
+(
+	kx    /* :Function & Object */,
+	start /* :number */,
+	end   /* :?number */
+)
+{
+	var datarange
+	datarange = range(start, end)
+	datarange = datarange.map(n => ({ n: n }))
+
+	return dataset(kx, table => table.integer('n'), datarange)
 }

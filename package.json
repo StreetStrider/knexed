@@ -41,6 +41,9 @@
     "sqlite3":
       "3",
 
+    "lodash":
+      "4",
+
     "istanbul":
       "0.4",
 
