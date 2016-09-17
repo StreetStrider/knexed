@@ -1,0 +1,2 @@
+
+type Knex = Object & Function;

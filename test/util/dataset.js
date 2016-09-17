@@ -6,7 +6,7 @@ var dataset
  = module.exports
  = function dataset
 (
-	kx     /* :Function & Object */,
+	kx     /* :Knex */,
 	schema /* :Function */,
 	data   /* :Array<Object> | Object */
 )
@@ -38,7 +38,7 @@ var range = require('lodash/range')
 
 dataset.series = function series
 (
-	kx    /* :Function & Object */,
+	kx    /* :Knex */,
 	start /* :number */,
 	end   /* :?number */
 )
