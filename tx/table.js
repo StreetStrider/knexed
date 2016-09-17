@@ -2,8 +2,9 @@
 
 module.exports = function table (kx /* :Knex */, table_name /* :string */)
 {
-	return () =>
+	return (tx) =>
 	{
 		return kx(table_name)
+		.transacting(tx)
 	}
 }
