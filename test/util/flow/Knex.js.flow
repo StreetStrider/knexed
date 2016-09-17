@@ -1,2 +1,8 @@
 
 type Knex = Object & Function;
+
+type Transaction =
+{
+	transaction: Object,
+	savepoint:   Function
+}
