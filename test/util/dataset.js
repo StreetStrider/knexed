@@ -17,7 +17,11 @@ var dataset
 	return kx.schema.createTable(name, schema)
 	.then(() =>
 	{
-		return () => kx(name)
+		var ds = () => kx(name)
+
+		ds.tableName = name
+
+		return ds
 	})
 	.then(ds =>
 	{
