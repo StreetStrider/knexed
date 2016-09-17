@@ -13,7 +13,7 @@ describe('table', () =>
 {
 	it('generates new this table based query', () =>
 	{
-		ds
+		return ds
 		.then(ds =>
 		{
 			var name = ds.tableName
