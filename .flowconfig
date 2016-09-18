@@ -3,6 +3,7 @@
 [include]
 
 [libs]
+flowtype/
 test/util/flowtype/
 
 [options]
