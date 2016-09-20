@@ -40,4 +40,20 @@ describe('method', () =>
 			})
 		})
 	})
+
+	it('works with NOTX', () =>
+	{
+		var no = method.NOTX
+
+		expect(no).a('symbol')
+
+		return m(no, 1, 2, 3)
+		.then(tuple =>
+		{
+			expect(tuple[0]).equal(no)
+			expect(tuple[1]).equal(1)
+			expect(tuple[2]).equal(2)
+			expect(tuple[3]).equal(3)
+		})
+	})
 })

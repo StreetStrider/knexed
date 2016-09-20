@@ -2,6 +2,7 @@
 /* ::
 type RetPromise<T>   = (                 ...args: Array<any>) => Promise<T>;
 type RetPromiseTx<T> = (tx: Transaction, ...args: Array<any>) => Promise<T>;
+type TransactionOptional = Transaction | void | null | Symbol;
 */
 
 var slice = [].slice
@@ -19,12 +20,16 @@ var method
 {
 	return function
 	(
-		tx /* :?Transaction */
+		tx /* :TransactionOptional */
 		/* ::, ...args: Array<any> */
 	)
 		/* :Promise<T> */
 	{
 		if (is(tx))
+		{
+			return fn.apply(this, arguments)
+		}
+		else if (tx === NOTX)
 		{
 			return fn.apply(this, arguments)
 		}
@@ -39,3 +44,7 @@ var method
 		}
 	}
 }
+
+var NOTX
+ = method.NOTX
+ = Symbol('NOTX')
