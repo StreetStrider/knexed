@@ -15,7 +15,11 @@ module.exports = function table (kx /* :Knex */, table_name /* :string */)
 	return t
 }
 
-function transacted (kx /* :Knex */, table_name /* :string */, tx /* :TransactionOptional */)
+function transacted (
+	kx         /* :Knex */,
+	table_name /* :string */,
+	tx         /* :TransactionOptional */
+)
 {
 	return kx(table_name)
 	.transacting(tx)

@@ -1,5 +1,10 @@
 
 module.exports =
 {
-	extends: './node_modules/js-outlander/outlander.eslint.js'
+	extends: './node_modules/js-outlander/outlander.eslint.js',
+
+	env:
+	{
+		es6: true
+	}
 }
