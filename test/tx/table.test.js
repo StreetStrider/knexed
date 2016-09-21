@@ -73,6 +73,24 @@ describe('table', () =>
 			})
 		})
 	})
+
+	it('works with NOTX', () =>
+	{
+		var no = require('../../tx/method').NOTX
+
+		return ds
+		.then(ds =>
+		{
+			var name = ds.tableName
+
+			var t = table(kx, name)
+
+			return expect_select(
+				t(no).select().where('n', 1),
+				[ { n: 1 } ]
+			)
+		})
+	})
 })
 
 function expect_select (select, rows)
