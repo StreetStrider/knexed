@@ -5,4 +5,11 @@ type Transaction =
 {
 	transaction: Object,
 	savepoint:   Function
-}
+};
+
+type TransactionOptional
+ = Transaction
+ | void
+ | null
+ | Symbol /* NOTX */
+;

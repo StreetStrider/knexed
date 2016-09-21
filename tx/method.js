@@ -2,7 +2,6 @@
 /* ::
 type RetPromise<T>   = (                 ...args: Array<any>) => Promise<T>;
 type RetPromiseTx<T> = (tx: Transaction, ...args: Array<any>) => Promise<T>;
-type TransactionOptional = Transaction | void | null | Symbol;
 */
 
 var slice = [].slice
