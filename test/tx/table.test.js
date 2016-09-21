@@ -93,6 +93,77 @@ describe('table', () =>
 	})
 })
 
+describe('table.as', () =>
+{
+	it('generates new this table based query with alias', () =>
+	{
+		return ds
+		.then(ds =>
+		{
+			var name = ds.tableName
+
+			var t = table(kx, name)
+
+			var q = t.as('alias').select().where('n', 1)
+
+			expect(q.toQuery())
+			.equal(`select * from "${name}" as "alias" where "n" = 1`)
+
+			return expect_select(
+				q,
+				[ { n: 1 } ]
+			)
+		})
+	})
+
+	it('works with alias, tx', () =>
+	{
+		return ds
+		.then(ds =>
+		{
+			var name = ds.tableName
+
+			var t = table(kx, name)
+
+			return kx.transaction(tx =>
+			{
+				var q = t.as('alias', tx).select().where('n', 1)
+
+				expect(q.toQuery())
+				.equal(`select * from "${name}" as "alias" where "n" = 1`)
+
+				return expect_select(
+					q,
+					[ { n: 1 } ]
+				)
+			})
+		})
+	})
+
+	it('works with alias, NOTX', () =>
+	{
+		var no = require('../../tx/method').NOTX
+
+		return ds
+		.then(ds =>
+		{
+			var name = ds.tableName
+
+			var t = table(kx, name)
+
+			var q = t.as('alias', no).select().where('n', 1)
+
+			expect(q.toQuery())
+			.equal(`select * from "${name}" as "alias" where "n" = 1`)
+
+			return expect_select(
+				q,
+				[ { n: 1 } ]
+			)
+		})
+	})
+})
+
 function expect_select (select, rows)
 {
 	return select
