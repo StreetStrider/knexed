@@ -259,7 +259,6 @@ describe('join', () =>
 		})
 	})
 
-
 	it('throws when unknown predicate ([0])', () =>
 	{
 		return test_error({ message: 'knexed/join/wrong-predicate' }, () =>
@@ -273,6 +272,83 @@ describe('join', () =>
 				/* @flow-off */
 				return join(ds1, ds2, [])() /* test empty array */
 			})
+		})
+	})
+
+	it('join.left', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			var j = join.left(ds1, ds2, 'id')
+
+			var q = j().select('*', `${ds1.relname}.id`)
+
+			expect(q.toQuery())
+			.equal(
+				`select *, "${ds1.relname}"."id" from "${ds1.relname}"` +
+				` left join "${ds2.relname}"` +
+				` on "${ds1.relname}"."id" = "${ds2.relname}"."id"`)
+
+			return expect_select(q,
+			[
+				{ id: 1, name: 'FOO', id_alt: 1,    mark: 'M1' },
+				{ id: 2, name: 'BAR', id_alt: null, mark: null },
+				{ id: 3, name: 'BAZ', id_alt: 2,    mark: 'M3' }
+			])
+		})
+	})
+
+	it('join.right', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			var j = join.right(ds1, ds2, 'id')
+
+			var q = j().select('*', `${ds2.relname}.id`)
+
+			expect(q.toQuery())
+			.equal(
+				`select *, "${ds2.relname}"."id" from "${ds1.relname}"` +
+				` right join "${ds2.relname}"` +
+				` on "${ds1.relname}"."id" = "${ds2.relname}"."id"`)
+
+			/*
+				// not implemented in SQLite:
+				return expect_select(q, [])
+			*/
+		})
+	})
+
+	it('join.full', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			var j = join.full(ds1, ds2, 'id')
+
+			var q = j()
+
+			expect(q.toQuery())
+			.equal(
+				`select * from "${ds1.relname}"` +
+				` full outer join "${ds2.relname}"` +
+				` on "${ds1.relname}"."id" = "${ds2.relname}"."id"`)
+
+			/*
+				// not implemented in SQLite:
+				return expect_select(q, [])
+			*/
 		})
 	})
 })
