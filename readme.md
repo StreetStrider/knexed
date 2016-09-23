@@ -47,6 +47,29 @@ create('Name') /* new transaction will be started */
 create(method.NOTX, 'Name') /* if you don't need transaction at all */
 ```
 
+### join helpers
+Use `join` helper for symmetric-looking joins. `table` is used as basis.
+```js
+var accounts = table(knex, 'accounts')
+var messages = table(knex, 'messages')
+
+var accounts$messages = join(accounts, messages, [ 'id', 'user_id' ])
+
+accounts$messages()
+.select('user_id', 'text')
+.where('user_id', user_id)
+
+/* other joins: */
+join.left(accounts, messages, [ 'id', 'user_id' ])
+join.right(messages, accounts, [ 'id', 'user_id' ])
+join.full(table_a, table_b, [ 'id', 'user_id' ])
+join.cross(table_a, table_b)
+
+/* pick predicate: */
+join(accounts, messages, [ 'id', '=', 'user_id' ])
+join.left(accounts, messages, [ 'id', '<>', 'user_id' ])
+```
+
 ## flow
 We're providing built-in [Flow](https://flowtype.org/) type definitions.
 
