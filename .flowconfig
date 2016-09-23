@@ -7,3 +7,4 @@ util/flowtype/
 test/util/flowtype/
 
 [options]
+suppress_comment= \\(.\\|\n\\)*\\@flow-off
