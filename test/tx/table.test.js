@@ -5,6 +5,8 @@ var noop = require('lodash/noop')
 
 var kx = require('../util/knexconn')()
 var dataset = require('../util/dataset')
+var expect_select = require('../util/expect-select')
+
 
 var table = require('../../tx/table')
 
@@ -180,12 +182,3 @@ describe('table.as', () =>
 	})
 })
 
-function expect_select (select, rows)
-{
-	return select
-	.then(rows_real =>
-	{
-		expect(rows_real).an('array')
-		expect(rows_real).eql(rows)
-	})
-}
