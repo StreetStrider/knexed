@@ -33,7 +33,7 @@ var isArray  = Array.isArray
 
 function compile_predicate
 (
-	L /* :string*/,
+	L /* :string */,
 	R /* :string */,
 	predicate /* :Predicate */
 )
