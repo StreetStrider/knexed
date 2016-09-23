@@ -51,6 +51,17 @@ function join_by_predicate (join_type /* :string */)
 }
 
 
+join.cross = function cross_join (left /* :TableRef */, right /* :TableRef */)
+{
+	var R = right.relname
+
+	return () =>
+	{
+		return left().crossJoin(R)
+	}
+}
+
+
 var isArray  = Array.isArray
 
 function compile_predicate

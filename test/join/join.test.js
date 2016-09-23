@@ -351,4 +351,54 @@ describe('join', () =>
 			*/
 		})
 	})
+
+	it('join.full', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			var j = join.cross(ds1, ds2)
+
+			var q = j()
+
+			expect(q.toQuery())
+			.equal(
+				`select * from "${ds1.relname}" cross join "${ds2.relname}"`)
+
+			/* another test with relatively small output */
+			var j2 = join.cross(ds1, ds2)
+
+			var q = j2()
+			.distinct()
+			.select(`${ds1.relname}.id AS id1`)
+			.select(`${ds2.relname}.id AS id2`)
+			.select('name')
+			.select('mark')
+			.orWhere('id1', 1)
+			.orWhere(`id2`, 1)
+
+			return expect_select(q.then(sorted),
+				sorted(
+				[
+					{ id1: 1, id2: 1, name: 'FOO', mark: 'M1' },
+					{ id1: 1, id2: 3, name: 'FOO', mark: 'M3' },
+					{ id1: 1, id2: 4, name: 'FOO', mark: 'M4' },
+//					{ id1: 1, id2: 1, name: 'FOO', mark: 'M1' }, // dup
+					{ id1: 2, id2: 1, name: 'BAR', mark: 'M1' },
+					{ id1: 3, id2: 1, name: 'BAZ', mark: 'M1' }
+				])
+			)
+
+			function sorted (rows)
+			{
+				return rows.sort((L, R) =>
+				{
+					return (L.id1 * 100 + L.id2) - (R.id1 * 100 + R.id2)
+				})
+			}
+		})
+	})
 })
