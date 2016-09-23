@@ -12,6 +12,22 @@ var ds = dataset.series(kx, 1, 4)
 
 describe('table', () =>
 {
+	it('table conforms interface', () =>
+	{
+		expect(table).a('function')
+		expect(table.name).equal('table')
+
+		var t = table(kx, 'T')
+
+		expect(t).a('function')
+
+		expect(t).property('relname')
+		expect(t.relname).equal('T')
+
+		expect(t).property('as')
+		expect(t.as).a('function')
+	})
+
 	it('generates new this table based query', () =>
 	{
 		return ds
