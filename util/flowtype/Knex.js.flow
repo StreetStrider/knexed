@@ -3,13 +3,22 @@ type Knex = Object & Function;
 
 type Transaction =
 {
-	transaction: Object,
-	savepoint:   Function
+  transaction: Object,
+  savepoint:   Function
 };
 
 type TransactionOptional
- = Transaction
- | void
- | null
- | Symbol /* NOTX */
-;
+= Transaction
+| void
+| null
+| Symbol; /* NOTX */
+
+type Query
+= Object /* non-sealed */
+&
+{
+  select: Function,
+  insert: Function,
+  update: Function,
+  delete: Function
+};

@@ -1,6 +1,15 @@
 /* @flow */
+/* ::
+   export type Table
+   = (tx :TransactionOptional) => Query
+   &
+   {
+     as: (alias :string, tx :TransactionOptional) => Query
+   }
+*/
 
 module.exports = function table (kx /* :Knex */, table_name /* :string */)
+/* :Table */
 {
 	var t = (tx /* :TransactionOptional */) =>
 	{
@@ -20,6 +29,7 @@ function transacted (
 	table_name /* :string */,
 	tx         /* :TransactionOptional */
 )
+/* :Query */
 {
 	return kx(table_name)
 	.transacting(tx)
