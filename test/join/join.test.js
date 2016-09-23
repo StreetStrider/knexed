@@ -29,6 +29,14 @@ var ds2 = dataset(kx, table =>
 ])
 
 var ready = Promise.all([ ds1, ds2 ])
+var ready_tables = ready
+.then(ready =>
+{
+	var ds1 = table(kx, ready[0].tableName)
+	var ds2 = table(kx, ready[1].tableName)
+
+	return [ ds1, ds2 ]
+})
 
 
 var join  = require('../../join/join')
@@ -38,11 +46,11 @@ describe('join', () =>
 {
 	it('works', () =>
 	{
-		return ready
+		return ready_tables
 		.then(ready =>
 		{
-			var ds1 = table(kx, ready[0].tableName)
-			var ds2 = table(kx, ready[1].tableName)
+			var ds1 = ready[0]
+			var ds2 = ready[1]
 
 			var j = join(ds1, ds2, 'id')
 
