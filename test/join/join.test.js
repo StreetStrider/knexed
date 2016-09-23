@@ -209,6 +209,7 @@ describe('join', () =>
 				var ds1 = ready[0]
 				var ds2 = ready[1]
 
+				/* @flow-off */
 				return join(ds1, ds2, [ 'id', '=', 'id', 'id_alt' ])()
 			})
 		})

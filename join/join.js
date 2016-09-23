@@ -5,8 +5,20 @@
    type TableRef = Table;
 
    export type Predicate
-   =   string
-   | [ string, string ];
+   = [ string, Operator, string ]
+   | [ string, string ]
+   |   string
+   ;
+
+   type Operator
+   = '='
+   | '>'
+   | '<'
+   | '>='
+   | '<='
+   | '<>'
+   | '!='
+   ;
 */
 
 module.exports = function join
@@ -37,6 +49,7 @@ function compile_predicate
 	R /* :string */,
 	predicate /* :Predicate */
 )
+/* : [ string, string, string ] */
 {
 	if (typeof predicate === 'string')
 	{
