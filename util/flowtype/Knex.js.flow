@@ -16,9 +16,15 @@ type TransactionOptional
 type Query
 = Object /* non-sealed */
 &
+Promise<mixed>
+&
 {
   select: Function,
   insert: Function,
   update: Function,
-  delete: Function
+  delete: Function,
+
+  join: Function,
+
+  toQuery: Function
 };
