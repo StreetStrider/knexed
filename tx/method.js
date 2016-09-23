@@ -1,7 +1,7 @@
 /* @flow */
 /* ::
-type RetPromise<T>   = (                 ...args: Array<any>) => Promise<T>;
-type RetPromiseTx<T> = (tx: Transaction, ...args: Array<any>) => Promise<T>;
+   type RetPromise<T>   = (                 ...args: Array<any>) => Promise<T>;
+   type RetPromiseTx<T> = (tx: Transaction, ...args: Array<any>) => Promise<T>;
 */
 
 var slice = [].slice
