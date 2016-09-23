@@ -25,7 +25,7 @@ var join   = module.exports = join_by_predicate('innerJoin')
 
 join.left  = join_by_predicate('leftJoin')
 join.right = join_by_predicate('rightJoin')
-join.full  = join_by_predicate('fullJoin')
+join.full  = join_by_predicate('fullOuterJoin')
 
 
 function join_by_predicate (join_type /* :string */)
