@@ -30,7 +30,8 @@ var ds2 = dataset(kx, table =>
 var ready = Promise.all([ ds1, ds2 ])
 
 
-var join = require('../../join/join')
+var join  = require('../../join/join')
+var table = require('../../tx/table')
 
 describe('join', () =>
 {
@@ -39,17 +40,17 @@ describe('join', () =>
 		return ready
 		.then(ready =>
 		{
-			var ds1 = ready[0]
-			var ds2 = ready[1]
+			var ds1 = table(kx, ready[0].tableName)
+			var ds2 = table(kx, ready[1].tableName)
 
-			var j = join(kx, ds1.tableName, ds2.tableName, 'id')
+			var j = join(ds1, ds2, 'id')
 
 			var q = j()
 
 			expect(q.toQuery())
 			.equal(
-				`select * from "${ds1.tableName}" inner join "${ds2.tableName}"` +
-				` on "${ds1.tableName}"."id" = "${ds2.tableName}"."id"`)
+				`select * from "${ds1.relname}" inner join "${ds2.relname}"` +
+				` on "${ds1.relname}"."id" = "${ds2.relname}"."id"`)
 
 			return q
 		})
