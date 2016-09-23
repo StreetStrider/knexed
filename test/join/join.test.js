@@ -60,6 +60,34 @@ var table = require('../../tx/table')
 
 describe('join', () =>
 {
+	it('join conforms interface', () =>
+	{
+		expect(join).a('function')
+		expect(join.name).equal('join')
+
+		sibling_method(join, 'left')
+		sibling_method(join, 'right')
+		sibling_method(join, 'full')
+
+		function sibling_method (object, key)
+		{
+			expect(object).property(key)
+			expect(object[key]).a('function')
+		}
+
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			expect(      join(ds1, ds2, 'id')).a('function')
+			expect( join.left(ds1, ds2, 'id')).a('function')
+			expect(join.right(ds1, ds2, 'id')).a('function')
+			expect( join.full(ds1, ds2, 'id')).a('function')
+		})
+	})
+
 	it('join by single colname', () =>
 	{
 		return ready_tables

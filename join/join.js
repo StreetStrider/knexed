@@ -21,22 +21,32 @@
    ;
 */
 
-module.exports = function join
-(
-	left  /* :TableRef */,
-	right /* :TableRef */,
-	predicate /* :Predicate */
-)
-/* :Table */
+var join   = module.exports = join_by_predicate('innerJoin')
+
+join.left  = join_by_predicate('leftJoin')
+join.right = join_by_predicate('rightJoin')
+join.full  = join_by_predicate('fullJoin')
+
+
+function join_by_predicate (join_type /* :string */)
 {
-	var L = left.relname
-	var R = right.relname
-
-	predicate = compile_predicate(L, R, predicate)
-
-	return () =>
+	return function join
+	(
+		left  /* :TableRef */,
+		right /* :TableRef */,
+		predicate /* :Predicate */
+	)
+	/* :Table */
 	{
-		return left().join(R, predicate[0], predicate[1], predicate[2])
+		var L = left.relname
+		var R = right.relname
+
+		predicate = compile_predicate(L, R, predicate)
+
+		return () =>
+		{
+			return left()[join_type](R, predicate[0], predicate[1], predicate[2])
+		}
 	}
 }
 
