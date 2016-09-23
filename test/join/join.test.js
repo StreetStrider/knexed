@@ -4,6 +4,7 @@ var expect = require('chai').expect
 
 var kx = require('../util/knexconn')()
 var dataset = require('../util/dataset')
+var expect_select = require('../util/expect-select')
 
 var ds1 = dataset(kx, table =>
 {
@@ -52,7 +53,11 @@ describe('join', () =>
 				`select * from "${ds1.relname}" inner join "${ds2.relname}"` +
 				` on "${ds1.relname}"."id" = "${ds2.relname}"."id"`)
 
-			return q
+			return expect_select(q,
+			[
+				{ id: 1, name: 'FOO', mark: 'M1' },
+				{ id: 3, name: 'BAZ', mark: 'M3' }
+			])
 		})
 	})
 })
