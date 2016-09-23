@@ -24,7 +24,7 @@ module.exports = function join
 
 	return () =>
 	{
-		return apply_predicate(left(), R, predicate)
+		return left().join(R, predicate[0], predicate[1], predicate[2])
 	}
 }
 
@@ -67,9 +67,4 @@ function compile_predicate
 	}
 
 	throw new TypeError('knexed/join/wrong-predicate')
-}
-
-function apply_predicate (q, R, predicate)
-{
-	return q.join(R, predicate[0], predicate[1], predicate[2])
 }
