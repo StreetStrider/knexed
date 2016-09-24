@@ -73,7 +73,9 @@ join.cross = function cross_join (left /* :TableRef */, right /* :TableRef */)
 
 	return () =>
 	{
-		return tableL.as(asL).crossJoin(tableR.relname(asR))
+		return tableL
+		.as(asL)
+		.crossJoin(tableR.relname(asR))
 	}
 }
 
