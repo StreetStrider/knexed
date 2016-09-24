@@ -21,14 +21,14 @@
    ;
 */
 
-var join   = module.exports = join_by_predicate('innerJoin')
+var join   = module.exports = join_by_type('innerJoin')
 
-join.left  = join_by_predicate('leftJoin')
-join.right = join_by_predicate('rightJoin')
-join.full  = join_by_predicate('fullOuterJoin')
+join.left  = join_by_type('leftJoin')
+join.right = join_by_type('rightJoin')
+join.full  = join_by_type('fullOuterJoin')
 
 
-function join_by_predicate (join_type /* :string */)
+function join_by_type (join_type /* :string */)
 {
 	return function join
 	(
