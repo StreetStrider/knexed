@@ -80,7 +80,7 @@ function compile_predicate
 			R + '.' + predicate
 		]
 	}
-	else if (isArray(predicate))
+	else if (Array.isArray(predicate))
 	{
 		if (predicate.length === 2)
 		{
