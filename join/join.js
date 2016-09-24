@@ -2,7 +2,12 @@
 /* ::
    import type { Table } from '../tx/table';
 
-   type TableRef = Table;
+   type TableRef
+   = Alias
+   | Table
+   ;
+
+   type Alias = [ Table, string ];
 
    export type Predicate
    = [ string, Operator, string ]
@@ -38,14 +43,21 @@ function join_by_type (join_type /* :string */)
 	)
 	/* :Table */
 	{
-		var L = left.relname()
-		var R = right.relname()
+		var tableL = pick_table(left)
+		var tableR = pick_table(right)
 
-		predicate = compile_predicate(L, R, predicate)
+		var asL = pick_actual_alias(left)
+		var asR = pick_actual_alias(right)
+
+		predicate = compile_predicate(asL, asR, predicate)
 
 		return () =>
 		{
-			return left()[join_type](R, predicate[0], predicate[1], predicate[2])
+			return tableL
+			.as(asL)[join_type](
+				tableR.relname(asR),
+				predicate[0], predicate[1], predicate[2]
+			)
 		}
 	}
 }
@@ -53,16 +65,42 @@ function join_by_type (join_type /* :string */)
 
 join.cross = function cross_join (left /* :TableRef */, right /* :TableRef */)
 {
-	var R = right.relname()
+	var tableL = pick_table(left)
+	var tableR = pick_table(right)
+
+	var asL = pick_actual_alias(left)
+	var asR = pick_actual_alias(right)
 
 	return () =>
 	{
-		return left().crossJoin(R)
+		return tableL.as(asL).crossJoin(tableR.relname(asR))
 	}
 }
 
 
-var isArray  = Array.isArray
+function pick_table (table /* :TableRef */) /* :Table */
+{
+	if (Array.isArray(table))
+	{
+		return table[0]
+	}
+	else
+	{
+		return table
+	}
+}
+
+function pick_actual_alias (table /* :TableRef */) /* :string */
+{
+	if (Array.isArray(table))
+	{
+		return table[1]
+	}
+	else
+	{
+		return table.relname()
+	}
+}
 
 function compile_predicate
 (
