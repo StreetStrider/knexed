@@ -410,7 +410,7 @@ describe('join', () =>
 		})
 	})
 
-	it('join.full', () =>
+	it('join.cross', () =>
 	{
 		return ready_tables
 		.then(ready =>
