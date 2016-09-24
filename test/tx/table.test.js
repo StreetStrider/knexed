@@ -264,4 +264,25 @@ describe('table.as', () =>
 			)
 		})
 	})
+
+	it('do not attach alias when equals to table name', () =>
+	{
+		return ds
+		.then(ds =>
+		{
+			var name = ds.tableName
+
+			var t = table(kx, name)
+
+			var q = t.as(name).select().where('n', 1)
+
+			expect(q.toQuery())
+			.equal(`select * from "${name}" where "n" = 1`)
+
+			return expect_select(
+				q,
+				[ { n: 1 } ]
+			)
+		})
+	})
 })

@@ -27,12 +27,13 @@ module.exports = function table (kx /* :Knex */, table_name /* :string */)
 	{
 		if (alias)
 		{
-			return table_name + ' as ' + alias
+			if (alias !== table_name)
+			{
+				return table_name + ' as ' + alias
+			}
 		}
-		else
-		{
-			return table_name
-		}
+
+		return table_name
 	}
 
 	return t
