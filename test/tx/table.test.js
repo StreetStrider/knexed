@@ -24,10 +24,18 @@ describe('table', () =>
 		expect(t).a('function')
 
 		expect(t).property('relname')
-		expect(t.relname).equal('T')
+		expect(t.relname).a('function')
 
 		expect(t).property('as')
 		expect(t.as).a('function')
+	})
+
+	it('relname, relname with alias', () =>
+	{
+		var t = table(kx, 'T')
+
+		expect(t.relname()).equal('T')
+		expect(t.relname('A')).equal('T as A')
 	})
 
 	it('generates new this table based query', () =>

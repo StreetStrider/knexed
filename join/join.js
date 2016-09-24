@@ -38,8 +38,8 @@ function join_by_predicate (join_type /* :string */)
 	)
 	/* :Table */
 	{
-		var L = left.relname
-		var R = right.relname
+		var L = left.relname()
+		var R = right.relname()
 
 		predicate = compile_predicate(L, R, predicate)
 
@@ -53,7 +53,7 @@ function join_by_predicate (join_type /* :string */)
 
 join.cross = function cross_join (left /* :TableRef */, right /* :TableRef */)
 {
-	var R = right.relname
+	var R = right.relname()
 
 	return () =>
 	{
