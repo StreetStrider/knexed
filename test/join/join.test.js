@@ -42,6 +42,12 @@ expected_resultset.alt =
 	{ id_alt: 2, name: 'BAR', mark: 'M3' },
 	{ id_alt: 3, name: 'BAZ', mark: 'M4' }
 ]
+expected_resultset.left =
+[
+	{ id: 1, name: 'FOO', id_alt: 1,    mark: 'M1' },
+	{ id: 2, name: 'BAR', id_alt: null, mark: null },
+	{ id: 3, name: 'BAZ', id_alt: 2,    mark: 'M3' }
+]
 
 
 var ready = Promise.all([ ds1, ds2 ])
@@ -351,12 +357,7 @@ describe('join', () =>
 				` left join "${ds2.relname()}"` +
 				` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"`)
 
-			return expect_select(q,
-			[
-				{ id: 1, name: 'FOO', id_alt: 1,    mark: 'M1' },
-				{ id: 2, name: 'BAR', id_alt: null, mark: null },
-				{ id: 3, name: 'BAZ', id_alt: 2,    mark: 'M3' }
-			])
+			return expect_select(q, expected_resultset.left)
 		})
 	})
 
@@ -479,6 +480,116 @@ describe('join', () =>
 				` on "ds1"."id" = "${ds2.relname()}"."id"`)
 
 			return expect_select(q, expected_resultset.main)
+		})
+	})
+
+	it('join by single colname with right alias', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			var j = join(ds1, [ ds2, 'ds2' ], 'id')
+
+			var q = j()
+
+			expect(q.toQuery())
+			.equal(
+				`select * from "${ds1.relname()}"` +
+				` inner join "${ds2.relname()}" as "ds2"` +
+				` on "${ds1.relname()}"."id" = "ds2"."id"`)
+
+			return expect_select(q, expected_resultset.main)
+		})
+	})
+
+	it('join by single colname with two aliases', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			var j = join([ ds1, 'ds1' ], [ ds2, 'ds2' ], 'id')
+
+			var q = j()
+
+			expect(q.toQuery())
+			.equal(
+				`select * from "${ds1.relname()}" as "ds1"` +
+				` inner join "${ds2.relname()}" as "ds2"` +
+				` on "ds1"."id" = "ds2"."id"`)
+
+			return expect_select(q, expected_resultset.main)
+		})
+	})
+
+	it('join by colname pair with two aliases', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			var j = join([ ds1, 'ds1' ], [ ds2, 'ds2' ], [ 'id', 'id_alt' ])
+
+			var q = j().select('id_alt', 'name', 'mark')
+
+			expect(q.toQuery())
+			.equal(
+				`select "id_alt", "name", "mark"` +
+				` from "${ds1.relname()}" as "ds1"` +
+				` inner join "${ds2.relname()}" as "ds2"` +
+				` on "ds1"."id" = "ds2"."id_alt"`)
+
+			return expect_select(q, expected_resultset.alt)
+		})
+	})
+
+	it('join.left by colname pair with two aliases', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			var j = join.left([ ds1, 'ds1' ], [ ds2, 'ds2' ], 'id')
+
+			var q = j().select('*', `ds1.id`)
+
+			expect(q.toQuery())
+			.equal(
+				`select *, "ds1"."id"` +
+				` from "${ds1.relname()}" as "ds1"` +
+				` left join "${ds2.relname()}" as "ds2"` +
+				` on "ds1"."id" = "ds2"."id"`)
+
+			return expect_select(q, expected_resultset.left)
+		})
+	})
+
+	it('join.cross with two aliases', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			var j = join.cross([ ds1, 'ds1' ], [ ds2, 'ds2' ])
+
+			var q = j()
+
+			expect(q.toQuery())
+			.equal(
+				`select * from "${ds1.relname()}" as "ds1"` +
+				` cross join "${ds2.relname()}" as "ds2"`
+			)
 		})
 	})
 })
