@@ -459,4 +459,26 @@ describe('join', () =>
 			}
 		})
 	})
+
+	it('join by single colname with alias', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			var j = join([ ds1, 'ds1' ], ds2, 'id')
+
+			var q = j()
+
+			expect(q.toQuery())
+			.equal(
+				`select * from "${ds1.relname()}" as "ds1"` +
+				` inner join "${ds2.relname()}"` +
+				` on "ds1"."id" = "${ds2.relname()}"."id"`)
+
+			return expect_select(q, expected_resultset.main)
+		})
+	})
 })
