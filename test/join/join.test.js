@@ -135,7 +135,8 @@ describe('join', () =>
 
 				expect(q.toQuery())
 				.equal(
-					`select * from "${ds1.relname()}" inner join "${ds2.relname()}"` +
+					`select * from "${ds1.relname()}"` +
+					` inner join "${ds2.relname()}"` +
 					` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"` +
 					` where "${ds1.relname()}"."id" = 1`
 				)
@@ -152,7 +153,8 @@ describe('join', () =>
 
 				expect(q.toQuery())
 				.equal(
-					`select * from "${ds1.relname()}" inner join "${ds2.relname()}"` +
+					`select * from "${ds1.relname()}"` +
+					` inner join "${ds2.relname()}"` +
 					` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"` +
 					` where "${ds1.relname()}"."id" = 3`
 				)
