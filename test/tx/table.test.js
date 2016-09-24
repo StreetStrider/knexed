@@ -39,10 +39,39 @@ describe('table', () =>
 
 			var t = table(kx, name)
 
-			return expect_select(
-				t().select().where('n', 1),
-				[ { n: 1 } ]
-			)
+			var q = t().select().where('n', 1)
+
+			expect(q.toQuery())
+			.equal(`select * from "${name}" where "n" = 1`)
+
+			return expect_select(q, [ { n: 1 } ])
+		})
+	})
+
+	it('generates clean query every time', () =>
+	{
+		return ds
+		.then(ds =>
+		{
+			var name = ds.tableName
+
+			var t = table(kx, name)
+
+			var q = t().select().where('n', 1)
+
+			expect(q.toQuery())
+			.equal(`select * from "${name}" where "n" = 1`)
+
+			return expect_select(q, [ { n: 1 } ])
+			.then(() =>
+			{
+				var q = t().select().where('n', 2)
+
+				expect(q.toQuery())
+				.equal(`select * from "${name}" where "n" = 2`)
+
+				return expect_select(q, [ { n: 2 } ])
+			})
 		})
 	})
 

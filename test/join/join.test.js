@@ -109,6 +109,62 @@ describe('join', () =>
 		})
 	})
 
+	it('generates clean join every time', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			var j = join(ds1, ds2, 'id')
+
+			var q = j()
+
+			expect(q.toQuery())
+			.equal(
+				`select * from "${ds1.relname}" inner join "${ds2.relname}"` +
+				` on "${ds1.relname}"."id" = "${ds2.relname}"."id"`
+			)
+
+			return expect_select(q, expected_resultset.main)
+			.then(() =>
+			{
+				var q = j()
+				.where(`${ds1.relname}.id`, 1)
+
+				expect(q.toQuery())
+				.equal(
+					`select * from "${ds1.relname}" inner join "${ds2.relname}"` +
+					` on "${ds1.relname}"."id" = "${ds2.relname}"."id"` +
+					` where "${ds1.relname}"."id" = 1`
+				)
+
+				return expect_select(q,
+				[
+					{ id: 1, name: 'FOO', id_alt: 1, mark: 'M1' }
+				])
+			})
+			.then(() =>
+			{
+				var q = j()
+				.where(`${ds1.relname}.id`, 3)
+
+				expect(q.toQuery())
+				.equal(
+					`select * from "${ds1.relname}" inner join "${ds2.relname}"` +
+					` on "${ds1.relname}"."id" = "${ds2.relname}"."id"` +
+					` where "${ds1.relname}"."id" = 3`
+				)
+
+				return expect_select(q,
+				[
+					{ id: 3, name: 'BAZ', id_alt: 2, mark: 'M3' }
+				])
+			})
+		})
+	})
+
 	it('join by colname pair [ id, id ]', () =>
 	{
 		return ready_tables
