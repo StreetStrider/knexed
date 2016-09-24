@@ -4,7 +4,7 @@
 
    export type TableAs = Table &
    {
-     as: (alias :string, tx :TransactionOptional) => Query,
+     as: (alias :?string, tx :TransactionOptional) => Query,
 
      relname: (alias :?string) => string
    };
@@ -18,7 +18,7 @@ module.exports = function table (kx /* :Knex */, table_name /* :string */)
 		return transacted(kx, table_name, tx)
 	}
 
-	t.as = (alias /* :string */, tx /* :TransactionOptional */) =>
+	t.as = (alias /* :?string */, tx /* :TransactionOptional */) =>
 	{
 		return transacted(kx, relname(alias), tx)
 	}

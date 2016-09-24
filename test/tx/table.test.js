@@ -217,5 +217,51 @@ describe('table.as', () =>
 			)
 		})
 	})
-})
 
+	it('works with nullish alias, tx', () =>
+	{
+		return ds
+		.then(ds =>
+		{
+			var name = ds.tableName
+
+			var t = table(kx, name)
+
+			return kx.transaction(tx =>
+			{
+				var q = t.as(null, tx).select().where('n', 1)
+
+				expect(q.toQuery())
+				.equal(`select * from "${name}" where "n" = 1`)
+
+				return expect_select(
+					q,
+					[ { n: 1 } ]
+				)
+			})
+		})
+	})
+
+	it('works with nullish alias, NOTX', () =>
+	{
+		var no = require('../../tx/method').NOTX
+
+		return ds
+		.then(ds =>
+		{
+			var name = ds.tableName
+
+			var t = table(kx, name)
+
+			var q = t.as(null, no).select().where('n', 1)
+
+			expect(q.toQuery())
+			.equal(`select * from "${name}" where "n" = 1`)
+
+			return expect_select(
+				q,
+				[ { n: 1 } ]
+			)
+		})
+	})
+})
