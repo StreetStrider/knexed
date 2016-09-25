@@ -50,16 +50,19 @@ create(method.NOTX, 'Name') /* if you don't need transaction at all */
 ### join helpers
 Use `join` helper for symmetric-looking joins. `table` is used as basis.
 ```js
+/* prepare two tables: */
 var accounts = table(knex, 'accounts')
 var messages = table(knex, 'messages')
 
+/* join by accounts.id = messages.user_id: */
 var accounts$messages = join(accounts, messages, [ 'id', 'user_id' ])
 
+/* then use as simple table */
 accounts$messages()
 .select('user_id', 'text')
 .where('user_id', user_id)
 
-/* other joins: */
+/* supported join types: */
 join.left(accounts, messages, [ 'id', 'user_id' ])
 join.right(messages, accounts, [ 'id', 'user_id' ])
 join.full(table_a, table_b, [ 'id', 'user_id' ])
@@ -68,6 +71,15 @@ join.cross(table_a, table_b)
 /* pick predicate: */
 join(accounts, messages, [ 'id', '=', 'user_id' ])
 join.left(accounts, messages, [ 'id', '<>', 'user_id' ])
+
+/* join by accounts.id = messages.id, like NATURAL JOIN: */
+join(accounts, messages, 'id')
+
+/* join with aliases */
+/* accounts as A, messages as M, 
+   this will also pick proper aliases on join predicate
+ */
+join([ accounts, 'A' ], [ messages, 'M' ], [ 'id', 'user_id' ])
 ```
 
 ## flow
