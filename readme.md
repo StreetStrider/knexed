@@ -23,22 +23,25 @@ knex('table').select()
 .then(project('id')) // compose object with rows by ids
 ```
 
-### table helpers
+### table helpers (`table/table`)
 ```js
 /* create init point for this table queries: */
 var accounts = table(knex, 'accounts')
 
-/* then use it */
+/* `accounts()` creates new query at every invocation */
 accounts().select()
 accounts(trx).select() /* as a part of transaction `trx` */
-accounts.as('alias').select()
+accounts.as('alias').select() /* with alias */
 accounts.as('alias', trx).select()
-/* then build query … */
+/* … then build query … */
+```
 
+### transaction helpers (`tx/method`)
+```js
 /* create method */
 var create = method(knex, (trx, name) =>
 {
-	return accounts(trx).insert({ name: name })
+   return accounts(trx).insert({ name: name })
 })
 
 /* then use it */
@@ -47,7 +50,7 @@ create('Name') /* new transaction will be started */
 create(method.NOTX, 'Name') /* if you don't need transaction at all */
 ```
 
-### join helpers
+### join helpers (`table/join`)
 Use `join` helper for symmetric-looking joins. `table` is used as basis.
 ```js
 /* prepare two tables: */
@@ -56,6 +59,7 @@ var messages = table(knex, 'messages')
 
 /* join by accounts.id = messages.user_id: */
 var accounts$messages = join(accounts, messages, [ 'id', 'user_id' ])
+/* `accounts$messages()` creates new query at every invocation */
 
 /* then use as simple table */
 accounts$messages()
@@ -76,7 +80,7 @@ join.left(accounts, messages, [ 'id', '<>', 'user_id' ])
 join(accounts, messages, 'id')
 
 /* join with aliases */
-/* accounts as A, messages as M, 
+/* accounts as A, messages as M,
    this will also pick proper aliases on join predicate
  */
 join([ accounts, 'A' ], [ messages, 'M' ], [ 'id', 'user_id' ])
