@@ -39,7 +39,8 @@ module.exports = function table (kx /* :Knex */, table_name /* :string */)
 	return t
 }
 
-function transacted (
+function transacted
+(
 	kx         /* :Knex */,
 	table_name /* :string */,
 	tx         /* :TransactionOptional */
