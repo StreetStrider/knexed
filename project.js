@@ -6,7 +6,7 @@ module.exports = function project (key /* :string */)
 {
 	/* :: type Projection = Object */
 
-	return (rows /* :Array<Object> */) /* :Projection */ =>
+	return /* ::<T: Object> */ (rows /* :Array<T> */) /* :Projection */ =>
 	{
 		if (! rows.length)
 		{

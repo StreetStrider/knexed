@@ -1,6 +1,6 @@
 /* @flow */
 
-module.exports = function count (rows /* :Array<*> */) /* :number */
+module.exports = function count /* ::<T> */ (rows /* :Array<T> */) /* :number */
 {
 	return rows.length
 }
