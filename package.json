@@ -2,11 +2,26 @@
   "name":    "knexed",
   "version": "0.3.0",
 
-  "description": "knex utilities",
+  "description": "Knex utilities",
 
-  "author":     "Strider <teamfortresslife@gmail.com>",
   "license":    "MIT",
+  "author":     "Strider <teamfortresslife@gmail.com>",
   "repository": "StreetStrider/knexed",
+
+  "keywords":
+  [
+    "knex", "query-builder", "query builder",
+    "sql", "sql-query", "query", "database",
+
+    "postgresql", "sqlite3",
+    "mysql", "mariadb",
+    "oracle", "mssql"
+  ],
+
+  "engines":
+  {
+    "node": ">= 4"
+  },
 
   "peerDependencies":
   {
