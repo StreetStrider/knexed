@@ -1,6 +1,6 @@
 /* @flow */
 /* ::
-   import type { Table } from '../tx/table';
+   import type { Table } from '../table/table';
 
    type TableRef
    = Alias

@@ -61,8 +61,8 @@ var ready_tables = ready
 })
 
 
-var join  = require('../../join/join')
-var table = require('../../tx/table')
+var join  = require('../../table/join')
+var table = require('../../table/table')
 
 describe('join', () =>
 {

@@ -8,7 +8,7 @@ var dataset = require('../util/dataset')
 var expect_select = require('../util/expect-select')
 
 
-var table = require('../../tx/table')
+var table = require('../../table/table')
 
 var ds = dataset.series(kx, 1, 4)
 
