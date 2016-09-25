@@ -13,7 +13,7 @@
 */
 
 module.exports = function table (kx /* :Knex */, table_name /* :string */)
-/* :Table */
+	/* :Table */
 {
 	var t = (tx /* :TransactionOptional */) =>
 	{
@@ -47,7 +47,7 @@ function transacted
 	table_name /* :string */,
 	tx         /* :TransactionOptional */
 )
-/* :Query */
+	/* :Query */
 {
 	return kx(table_name)
 	.transacting(tx)

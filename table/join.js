@@ -43,7 +43,7 @@ function join_by_type (join_type /* :string */)
 		right /* :TableRef */,
 		predicate /* :Predicate */
 	)
-	/* :Join */
+		/* :Join */
 	{
 		var tableL = pick_table(left)
 		var tableR = pick_table(right)
@@ -66,7 +66,7 @@ function join_by_type (join_type /* :string */)
 
 
 join.cross = function cross_join (left /* :TableRef */, right /* :TableRef */)
-/* :Join */
+	/* :Join */
 {
 	var tableL = pick_table(left)
 	var tableR = pick_table(right)
@@ -113,7 +113,7 @@ function compile_predicate
 	R /* :string */,
 	predicate /* :Predicate */
 )
-/* : [ string, string, string ] */
+	/* : [ string, string, string ] */
 {
 	if (typeof predicate === 'string')
 	{
