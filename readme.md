@@ -66,6 +66,9 @@ accounts$messages()
 .select('user_id', 'text')
 .where('user_id', user_id)
 
+/* as a part of transaction `trx` */
+accounts$messages(trx).select()
+
 /* supported join types: */
 join.left(accounts, messages, [ 'id', 'user_id' ])
 join.right(messages, accounts, [ 'id', 'user_id' ])
