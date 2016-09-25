@@ -1,8 +1,10 @@
 /* @flow */
 /* ::
-   export type Table = (tx :TransactionOptional) => Query;
+   export type TableFn = (tx :TransactionOptional) => Query;
 
-   export type TableAs = Table &
+   export type Table
+   = TableFn
+   &
    {
      as: (alias :?string, tx :TransactionOptional) => Query,
 
@@ -11,7 +13,7 @@
 */
 
 module.exports = function table (kx /* :Knex */, table_name /* :string */)
-/* :TableAs */
+/* :Table */
 {
 	var t = (tx /* :TransactionOptional */) =>
 	{

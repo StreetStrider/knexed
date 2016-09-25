@@ -1,6 +1,8 @@
 /* @flow */
 /* ::
-   import type { Table } from '../table/table';
+   import type { TableFn, Table } from '../table/table';
+
+   type Join = TableFn;
 
    type TableRef
    = Alias
@@ -41,7 +43,7 @@ function join_by_type (join_type /* :string */)
 		right /* :TableRef */,
 		predicate /* :Predicate */
 	)
-	/* :Table */
+	/* :Join */
 	{
 		var tableL = pick_table(left)
 		var tableR = pick_table(right)
@@ -64,6 +66,7 @@ function join_by_type (join_type /* :string */)
 
 
 join.cross = function cross_join (left /* :TableRef */, right /* :TableRef */)
+/* :Join */
 {
 	var tableL = pick_table(left)
 	var tableR = pick_table(right)
