@@ -592,4 +592,41 @@ describe('join', () =>
 			)
 		})
 	})
+
+	it('join works with tx', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			return kx.transaction(tx =>
+			{
+				var j = join(ds1, ds2, 'id')
+
+				var q = j(tx)
+
+				return expect_select(q, expected_resultset.main)
+			})
+		})
+	})
+
+	it('works with NOTX', () =>
+	{
+		var no = require('../../tx/method').NOTX
+
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+
+			var j = join(ds1, ds2, 'id')
+
+			var q = j(no)
+
+			return expect_select(q, expected_resultset.main)
+		})
+	})
 })

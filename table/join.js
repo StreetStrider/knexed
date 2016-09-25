@@ -53,10 +53,10 @@ function join_by_type (join_type /* :string */)
 
 		predicate = compile_predicate(asL, asR, predicate)
 
-		return () =>
+		return (tx /* :TransactionOptional */) =>
 		{
 			return tableL
-			.as(asL)[join_type](
+			.as(asL, tx)[join_type](
 				tableR.relname(asR),
 				predicate[0], predicate[1], predicate[2]
 			)
@@ -74,10 +74,10 @@ join.cross = function cross_join (left /* :TableRef */, right /* :TableRef */)
 	var asL = pick_actual_alias(left)
 	var asR = pick_actual_alias(right)
 
-	return () =>
+	return (tx /* :TransactionOptional */) =>
 	{
 		return tableL
-		.as(asL)
+		.as(asL, tx)
 		.crossJoin(tableR.relname(asR))
 	}
 }
