@@ -629,4 +629,7 @@ describe('join', () =>
 			return expect_select(q, expected_resultset.main)
 		})
 	})
+
+	/* complex joins */
+	require('./_join-complex')
 })
