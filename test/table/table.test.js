@@ -285,4 +285,11 @@ describe('table.as', () =>
 			)
 		})
 	})
+
+	it('toString = relname()', () =>
+	{
+		var t = table(kx, 'T')
+
+		expect(String(t)).equal('T')
+	})
 })
