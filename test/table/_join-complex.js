@@ -1,3 +1,4 @@
+/* @flow */
 
 // var expect = require('chai').expect
 
