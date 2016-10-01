@@ -63,7 +63,12 @@ it('(ds1 ↔ ds2) ↔ ds3 on ds2=ds3', () =>
 		var ds2 = ready[1]
 		var ds3 = ready[2]
 
-		var q = kx.raw(`SELECT * FROM ${ds1} INNER JOIN ${ds2} ON ${ds1}.id = ${ds2}.id INNER JOIN ${ds3} ON ${ds1}.id = ${ds3}.id`)
+		var ref =
+			`select * from "${ds1}"` +
+			` inner join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"` +
+			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"`
+
+		var q = kx.raw(ref)
 
 		// var ds1$ds2 = join(ds1, ds2, 'id')
 
@@ -83,7 +88,12 @@ it('(ds1 ← ds2) ↔ ds3 on ds1=ds3', () =>
 		var ds2 = ready[1]
 		var ds3 = ready[2]
 
-		var q = kx.raw(`SELECT * FROM ${ds1} LEFT JOIN ${ds2} ON ${ds1}.id = ${ds2}.id INNER JOIN ${ds3} ON ${ds1}.id = ${ds3}.id`)
+		var ref =
+			`select * from "${ds1}"` +
+			 ` left join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"` +
+			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"`
+
+		var q = kx.raw(ref)
 
 		// var ds1$ds2 = join(ds1, ds2, 'id')
 
@@ -105,7 +115,12 @@ it('(ds1 ← ds2) ↔ ds3 on ds2=ds3', () =>
 		var ds2 = ready[1]
 		var ds3 = ready[2]
 
-		var q = kx.raw(`SELECT * FROM ${ds1} LEFT JOIN ${ds2} ON ${ds1}.id = ${ds2}.id INNER JOIN ${ds3} ON ${ds2}.id = ${ds3}.id`)
+		var ref =
+			`select * from "${ds1}"` +
+			 ` left join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"` +
+			` inner join "${ds3}" on "${ds2}"."id" = "${ds3}"."id"`
+
+		var q = kx.raw(ref)
 
 		// var ds1$ds2 = join(ds1, ds2, 'id')
 
@@ -125,7 +140,12 @@ it('(ds1 ↔ ds3) ← ds2 on ds1=ds2', () =>
 		var ds2 = ready[1]
 		var ds3 = ready[2]
 
-		var q = kx.raw(`SELECT *, ${ds1}.id AS id FROM ${ds1} INNER JOIN ${ds3} ON ${ds1}.id = ${ds3}.id LEFT JOIN ${ds2} ON ${ds1}.id = ${ds2}.id`)
+		var ref =
+			`select *, "${ds1}"."id" as "id" from "${ds1}"` +
+			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"` +
+			 ` left join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"`
+
+		var q = kx.raw(ref)
 
 		// var ds1$ds2 = join(ds1, ds2, 'id')
 
@@ -147,7 +167,12 @@ it('(ds1 ↔ ds3) ← ds2 on ds3=ds2', () =>
 		var ds2 = ready[1]
 		var ds3 = ready[2]
 
-		var q = kx.raw(`SELECT *, ${ds1}.id AS id  FROM ${ds1} INNER JOIN ${ds3} ON ${ds1}.id = ${ds3}.id LEFT JOIN ${ds2} ON ${ds3}.id = ${ds2}.id`)
+		var ref =
+			`select *, "${ds1}"."id" as "id" from "${ds1}"` +
+			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"` +
+			 ` left join "${ds2}" on "${ds3}"."id" = "${ds2}"."id"`
+
+		var q = kx.raw(ref)
 
 		// var ds1$ds2 = join(ds1, ds2, 'id')
 
@@ -169,7 +194,12 @@ it('(ds1 × ds2) ↔ ds3 on ds1=ds3', () =>
 		var ds2 = ready[1]
 		var ds3 = ready[2]
 
-		var q = kx.raw(`SELECT * FROM ${ds1} CROSS JOIN ${ds2} INNER JOIN ${ds3} ON ${ds1}.id = ${ds3}.id`)
+		var ref =
+			`select * from "${ds1}"` +
+			` cross join "${ds2}"` +
+			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"`
+
+		var q = kx.raw(ref)
 
 		// var ds1$ds2 = join(ds1, ds2, 'id')
 
@@ -191,7 +221,12 @@ it('(ds1 × ds2) ↔ ds3 on ds2=ds3', () =>
 		var ds2 = ready[1]
 		var ds3 = ready[2]
 
-		var q = kx.raw(`SELECT * FROM ${ds1} CROSS JOIN ${ds2} INNER JOIN ${ds3} ON ${ds2}.id = ${ds3}.id`)
+		var ref =
+			`select * from "${ds1}"` +
+			` cross join "${ds2}"` +
+			` inner join "${ds3}" on "${ds2}"."id" = "${ds3}"."id"`
+
+		var q = kx.raw(ref)
 
 		// var ds1$ds2 = join(ds1, ds2, 'id')
 
