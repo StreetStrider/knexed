@@ -1,6 +1,6 @@
 /* @flow */
 
-// var expect = require('chai').expect
+var expect = require('chai').expect
 
 var kx = require('../util/knexconn')()
 var dataset = require('../util/dataset')
@@ -52,10 +52,10 @@ var ready_tables = ready
 })
 
 
-// var join  = require('../../table/join')
+var join  = require('../../table/join')
 var table = require('../../table/table')
 
-it('(ds1 ↔ ds2) ↔ ds3 on ds2=ds3', () =>
+it('(ds1 ↔ ds2) ↔ ds3 on ds2=ds3 single colname', () =>
 {
 	return ready_tables
 	.then(ready =>
@@ -69,9 +69,68 @@ it('(ds1 ↔ ds2) ↔ ds3 on ds2=ds3', () =>
 			` inner join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"` +
 			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"`
 
-		var q = kx.raw(ref)
+		var ds1$ds2 = join(ds1, ds2, 'id')
+		var j = join(ds1$ds2, ds3, 'id')
 
-		// var ds1$ds2 = join(ds1, ds2, 'id')
+		var q = j()
+
+		expect(q.toQuery()).equal(ref)
+
+		return expect_select(q,
+		[
+			{ id: 1, name: 'AAA', type: 'middle', right_name: 'R1' },
+		])
+	})
+})
+
+it('(ds1 ↔ ds2) ↔ ds3 on ds2=ds3 colname pair', () =>
+{
+	return ready_tables
+	.then(ready =>
+	{
+		var ds1 = ready[0]
+		var ds2 = ready[1]
+		var ds3 = ready[2]
+
+		var ref =
+			`select * from "${ds1}"` +
+			` inner join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"` +
+			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"`
+
+		var ds1$ds2 = join(ds1, ds2, 'id')
+		var j = join(ds1$ds2, ds3, [ 'id', 'id' ])
+
+		var q = j()
+
+		expect(q.toQuery()).equal(ref)
+
+		return expect_select(q,
+		[
+			{ id: 1, name: 'AAA', type: 'middle', right_name: 'R1' },
+		])
+	})
+})
+
+it('(ds1 ↔ ds2) ↔ ds3 on ds2=ds3 colname pair with predicate', () =>
+{
+	return ready_tables
+	.then(ready =>
+	{
+		var ds1 = ready[0]
+		var ds2 = ready[1]
+		var ds3 = ready[2]
+
+		var ref =
+			`select * from "${ds1}"` +
+			` inner join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"` +
+			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"`
+
+		var ds1$ds2 = join(ds1, ds2, 'id')
+		var j = join(ds1$ds2, ds3, [ 'id', '=', 'id' ])
+
+		var q = j()
+
+		expect(q.toQuery()).equal(ref)
 
 		return expect_select(q,
 		[
@@ -94,9 +153,12 @@ it('(ds1 ← ds2) ↔ ds3 on ds1=ds3', () =>
 			 ` left join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"` +
 			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"`
 
-		var q = kx.raw(ref)
+		var ds1$ds2 = join.left(ds1, ds2, 'id')
+		var j = join(ds1$ds2, ds3, 'id')
 
-		// var ds1$ds2 = join(ds1, ds2, 'id')
+		var q = j()
+
+		expect(q.toQuery()).equal(ref)
 
 		return expect_select(q,
 		[
@@ -121,9 +183,12 @@ it('(ds1 ← ds2) ↔ ds3 on ds2=ds3', () =>
 			 ` left join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"` +
 			` inner join "${ds3}" on "${ds2}"."id" = "${ds3}"."id"`
 
-		var q = kx.raw(ref)
+		var ds1$ds2 = join.left(ds1, ds2, 'id')
+		var j = join(ds1$ds2, ds3, 'id') /* |->| TODO */
 
-		// var ds1$ds2 = join(ds1, ds2, 'id')
+		var q = j()
+
+		expect(q.toQuery()).equal(ref)
 
 		return expect_select(q,
 		[
@@ -146,9 +211,12 @@ it('(ds1 ↔ ds3) ← ds2 on ds1=ds2', () =>
 			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"` +
 			 ` left join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"`
 
-		var q = kx.raw(ref)
+		var ds1$ds3 = join(ds1, ds3, 'id')
+		var j = join.left(ds1$ds3, ds2, 'id')
 
-		// var ds1$ds2 = join(ds1, ds2, 'id')
+		var q = j().select('*', `${ds1}.id as id`)
+
+		expect(q.toQuery()).equal(ref)
 
 		return expect_select(q,
 		[
@@ -173,9 +241,12 @@ it('(ds1 ↔ ds3) ← ds2 on ds3=ds2', () =>
 			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"` +
 			 ` left join "${ds2}" on "${ds3}"."id" = "${ds2}"."id"`
 
-		var q = kx.raw(ref)
+		var ds1$ds3 = join(ds1, ds3, 'id')
+		var j = join.left(ds1$ds3, ds2, 'id') /* |->| TODO */
 
-		// var ds1$ds2 = join(ds1, ds2, 'id')
+		var q = j().select('*', `${ds1}.id as id`)
+
+		expect(q.toQuery()).equal(ref)
 
 		return expect_select(q,
 		[
@@ -200,9 +271,12 @@ it('(ds1 × ds2) ↔ ds3 on ds1=ds3', () =>
 			` cross join "${ds2}"` +
 			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"`
 
-		var q = kx.raw(ref)
+		var ds1$ds2 = join.cross(ds1, ds2)
+		var j = join(ds1$ds2, ds3, 'id')
 
-		// var ds1$ds2 = join(ds1, ds2, 'id')
+		var q = j()
+
+		expect(q.toQuery()).equal(ref)
 
 		return expect_select(q,
 		[
@@ -227,9 +301,12 @@ it('(ds1 × ds2) ↔ ds3 on ds2=ds3', () =>
 			` cross join "${ds2}"` +
 			` inner join "${ds3}" on "${ds2}"."id" = "${ds3}"."id"`
 
-		var q = kx.raw(ref)
+		var ds1$ds2 = join.cross(ds1, ds2)
+		var j = join(ds1$ds2, ds3, 'id') /* |->| TODO */
 
-		// var ds1$ds2 = join(ds1, ds2, 'id')
+		var q = j()
+
+		expect(q.toQuery()).equal(ref)
 
 		return expect_select(q,
 		[
