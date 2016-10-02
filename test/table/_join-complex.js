@@ -65,9 +65,9 @@ it('(ds1 ↔ ds2) ↔ ds3 on ds2=ds3 single colname', () =>
 		var ds3 = ready[2]
 
 		var ref =
-			`select * from "${ds1}"` +
-			` inner join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"` +
-			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"`
+			`select * from "${ds1.relname()}"` +
+			` inner join "${ds2.relname()}" on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"` +
+			` inner join "${ds3.relname()}" on "${ds1.relname()}"."id" = "${ds3.relname()}"."id"`
 
 		var ds1$ds2 = join(ds1, ds2, 'id')
 		var j = join(ds1$ds2, ds3, 'id')
@@ -93,9 +93,9 @@ it('(ds1 ↔ ds2) ↔ ds3 on ds2=ds3 colname pair', () =>
 		var ds3 = ready[2]
 
 		var ref =
-			`select * from "${ds1}"` +
-			` inner join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"` +
-			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"`
+			`select * from "${ds1.relname()}"` +
+			` inner join "${ds2.relname()}" on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"` +
+			` inner join "${ds3.relname()}" on "${ds1.relname()}"."id" = "${ds3.relname()}"."id"`
 
 		var ds1$ds2 = join(ds1, ds2, 'id')
 		var j = join(ds1$ds2, ds3, [ 'id', 'id' ])
@@ -121,9 +121,9 @@ it('(ds1 ↔ ds2) ↔ ds3 on ds2=ds3 colname pair with predicate', () =>
 		var ds3 = ready[2]
 
 		var ref =
-			`select * from "${ds1}"` +
-			` inner join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"` +
-			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"`
+			`select * from "${ds1.relname()}"` +
+			` inner join "${ds2.relname()}" on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"` +
+			` inner join "${ds3.relname()}" on "${ds1.relname()}"."id" = "${ds3.relname()}"."id"`
 
 		var ds1$ds2 = join(ds1, ds2, 'id')
 		var j = join(ds1$ds2, ds3, [ 'id', '=', 'id' ])
@@ -149,9 +149,9 @@ it('(ds1 ← ds2) ↔ ds3 on ds1=ds3', () =>
 		var ds3 = ready[2]
 
 		var ref =
-			`select * from "${ds1}"` +
-			 ` left join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"` +
-			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"`
+			`select * from "${ds1.relname()}"` +
+			 ` left join "${ds2.relname()}" on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"` +
+			` inner join "${ds3.relname()}" on "${ds1.relname()}"."id" = "${ds3.relname()}"."id"`
 
 		var ds1$ds2 = join.left(ds1, ds2, 'id')
 		var j = join(ds1$ds2, ds3, 'id')
@@ -179,9 +179,9 @@ it('(ds1 ← ds2) ↔ ds3 on ds2=ds3', () =>
 		var ds3 = ready[2]
 
 		var ref =
-			`select * from "${ds1}"` +
-			 ` left join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"` +
-			` inner join "${ds3}" on "${ds2}"."id" = "${ds3}"."id"`
+			`select * from "${ds1.relname()}"` +
+			 ` left join "${ds2.relname()}" on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"` +
+			` inner join "${ds3.relname()}" on "${ds2.relname()}"."id" = "${ds3.relname()}"."id"`
 
 		var ds1$ds2 = join.left(ds1, ds2, 'id')
 		var j = join(ds1$ds2, ds3, 'id') /* |->| TODO */
@@ -207,14 +207,14 @@ it('(ds1 ↔ ds3) ← ds2 on ds1=ds2', () =>
 		var ds3 = ready[2]
 
 		var ref =
-			`select *, "${ds1}"."id" as "id" from "${ds1}"` +
-			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"` +
-			 ` left join "${ds2}" on "${ds1}"."id" = "${ds2}"."id"`
+			`select *, "${ds1.relname()}"."id" as "id" from "${ds1.relname()}"` +
+			` inner join "${ds3.relname()}" on "${ds1.relname()}"."id" = "${ds3.relname()}"."id"` +
+			 ` left join "${ds2.relname()}" on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"`
 
 		var ds1$ds3 = join(ds1, ds3, 'id')
 		var j = join.left(ds1$ds3, ds2, 'id')
 
-		var q = j().select('*', `${ds1}.id as id`)
+		var q = j().select('*', `${ds1.relname()}.id as id`)
 
 		expect(q.toQuery()).equal(ref)
 
@@ -237,14 +237,14 @@ it('(ds1 ↔ ds3) ← ds2 on ds3=ds2', () =>
 		var ds3 = ready[2]
 
 		var ref =
-			`select *, "${ds1}"."id" as "id" from "${ds1}"` +
-			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"` +
-			 ` left join "${ds2}" on "${ds3}"."id" = "${ds2}"."id"`
+			`select *, "${ds1.relname()}"."id" as "id" from "${ds1.relname()}"` +
+			` inner join "${ds3.relname()}" on "${ds1.relname()}"."id" = "${ds3.relname()}"."id"` +
+			 ` left join "${ds2.relname()}" on "${ds3.relname()}"."id" = "${ds2.relname()}"."id"`
 
 		var ds1$ds3 = join(ds1, ds3, 'id')
 		var j = join.left(ds1$ds3, ds2, 'id') /* |->| TODO */
 
-		var q = j().select('*', `${ds1}.id as id`)
+		var q = j().select('*', `${ds1.relname()}.id as id`)
 
 		expect(q.toQuery()).equal(ref)
 
@@ -267,9 +267,9 @@ it('(ds1 × ds2) ↔ ds3 on ds1=ds3', () =>
 		var ds3 = ready[2]
 
 		var ref =
-			`select * from "${ds1}"` +
-			` cross join "${ds2}"` +
-			` inner join "${ds3}" on "${ds1}"."id" = "${ds3}"."id"`
+			`select * from "${ds1.relname()}"` +
+			` cross join "${ds2.relname()}"` +
+			` inner join "${ds3.relname()}" on "${ds1.relname()}"."id" = "${ds3.relname()}"."id"`
 
 		var ds1$ds2 = join.cross(ds1, ds2)
 		var j = join(ds1$ds2, ds3, 'id')
@@ -297,9 +297,9 @@ it('(ds1 × ds2) ↔ ds3 on ds2=ds3', () =>
 		var ds3 = ready[2]
 
 		var ref =
-			`select * from "${ds1}"` +
-			` cross join "${ds2}"` +
-			` inner join "${ds3}" on "${ds2}"."id" = "${ds3}"."id"`
+			`select * from "${ds1.relname()}"` +
+			` cross join "${ds2.relname()}"` +
+			` inner join "${ds3.relname()}" on "${ds2.relname()}"."id" = "${ds3.relname()}"."id"`
 
 		var ds1$ds2 = join.cross(ds1, ds2)
 		var j = join(ds1$ds2, ds3, 'id') /* |->| TODO */
