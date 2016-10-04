@@ -11,6 +11,21 @@
 
    type Alias = [ Table, string ];
 
+
+   type TableRefComplex
+   = Join
+   | JoinWithDir
+   | TableRef
+   ;
+
+   type JoinWithDir = [ Join, JoinDir ];
+
+   type JoinDir = DirFirst | DirSecond;
+
+   type DirFirst  = Symbol;
+   type DirSecond = Symbol;
+
+
    export type Predicate
    = [ string, Operator, string ]
    | [ string, string ]
@@ -39,7 +54,7 @@ function join_by_type (join_type /* :string */)
 {
 	return function join
 	(
-		left  /* :TableRef */,
+		left  /* :TableRefComplex */,
 		right /* :TableRef */,
 		predicate /* :Predicate */
 	)
