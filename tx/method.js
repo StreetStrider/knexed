@@ -44,6 +44,6 @@ var method
 	}
 }
 
-var NOTX
+var NOTX /* :NOTX */
  = method.NOTX
  = Symbol('NOTX')

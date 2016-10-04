@@ -11,7 +11,9 @@ type TransactionOptional
 = Transaction
 | void
 | null
-| Symbol; /* NOTX */
+| NOTX; /* NOTX */
+
+type NOTX = Symbol;
 
 type Query
 = Object /* non-sealed */
