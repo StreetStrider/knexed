@@ -30,7 +30,7 @@
 
   "scripts":
   {
-    "st":    "eslint *.js tx/ table/ test/",
+    "st":    "eslint *.js tx/ table/ query/ test/",
     "flow":  "flow",
 
     "test":                  "mocha    --check-leaks --recursive test/**.test.js test/**/*.test.js",
