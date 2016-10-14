@@ -50,6 +50,11 @@ join.right = join_by_type('rightJoin')
 join.full  = join_by_type('fullOuterJoin')
 
 
+join.side = {}
+
+var FIRST  /* :SideFirst  */ = join.side.FIRST  = Symbol('FIRST')
+var SECOND /* :SideSecond */ = join.side.SECOND = Symbol('SECOND')
+
 function join_by_type (join_type /* :string */)
 {
 	return function join
