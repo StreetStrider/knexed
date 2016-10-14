@@ -14,16 +14,16 @@
 
    type TableRefComplex
    = Join
-   | JoinWithDir
+   | JoinWithSide
    | TableRef
    ;
 
-   type JoinWithDir = [ Join, JoinDir ];
+   type JoinWithSide = [ Join, JoinSide ];
 
-   type JoinDir = DirFirst | DirSecond;
+   type JoinSide = SideFirst | SideSecond;
 
-   type DirFirst  = Symbol;
-   type DirSecond = Symbol;
+   type SideFirst  = Symbol;
+   type SideSecond = Symbol;
 
 
    export type Predicate
