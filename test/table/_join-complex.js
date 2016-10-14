@@ -55,6 +55,83 @@ var ready_tables = ready
 var join  = require('../../table/join')
 var table = require('../../table/table')
 
+
+it('relnames', () =>
+{
+	return ready_tables
+	.then(ready =>
+	{
+		var ds1 = ready[0]
+		var ds2 = ready[1]
+
+		var j = join(ds1, ds2, 'id')
+
+		expect_join_relnames(j)
+
+		expect(j.relnames.first).property('relname')
+		expect(j.relnames.first.relname).a('function')
+		expect(j.relnames.first.relname()).equal(ds1.relname())
+
+		expect(j.relnames.second).property('relname')
+		expect(j.relnames.second.relname).a('function')
+		expect(j.relnames.second.relname()).equal(ds2.relname())
+
+		return ready
+	})
+	.then(ready =>
+	{
+		var ds1 = ready[0]
+		var ds2 = ready[1]
+		var ds3 = ready[2]
+
+		var ds1$ds2 = join(ds1, ds2, 'id')
+		var j = join(ds1$ds2, ds3, 'id')
+
+		expect_join_relnames(j)
+
+		expect(j.relnames.first).property('relnames')
+
+		expect_join_relnames(j.relnames.first)
+	})
+	.then(ready =>
+	{
+		var ds1 = ready[0]
+		var ds2 = ready[1]
+		var ds3 = ready[2]
+
+		var ds1$ds2 = join(ds1, ds2, 'id')
+		var j = join(ds1$ds2, ds3, 'id') /* |->| TODO */
+
+		expect_join_relnames(j)
+
+		expect(j.relnames.second).property('relnames')
+
+		expect_join_relnames(j.relnames.second)
+	})
+
+	function expect_join_relnames (j)
+	{
+		expect(j.relnames).an('object')
+
+		expect(j.relnames).property('first')
+		expect(j.relnames).property('second')
+
+		expect(j.relnames.first).property('relname')
+		expect(
+			j.relnames.first.relname
+			||
+			j.relnames.first.relnames
+		).true
+
+		expect(j.relnames.second).property('relname')
+		expect(
+			j.relnames.second.relname
+			||
+			j.relnames.second.relnames
+		).true
+	}
+})
+
 it('(ds1 ↔ ds2) ↔ ds3 on ds2=ds3 single colname', () =>
 {
 	return ready_tables
