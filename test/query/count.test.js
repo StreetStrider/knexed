@@ -24,4 +24,42 @@ describe('query/count', () =>
 			expect(c).equal(3)
 		})
 	})
+
+	it('returns count on table subset', () =>
+	{
+		return ds
+		.then(ds =>
+		{
+			return count(ds().where('n', '>=', 2))
+		})
+		.then(c =>
+		{
+			expect(c).a('number')
+			expect(c).equal(2)
+		})
+	})
+
+	it('returns zero for empty subset', () =>
+	{
+		return ds
+		.then(ds =>
+		{
+			return count(ds().where('n', '>=', 10))
+		})
+		.then(c =>
+		{
+			expect(c).a('number')
+			expect(c).equal(0)
+		})
+	})
+
+	it('works on raw', () =>
+	{
+		return count(kx.from(kx.raw('(VALUES (1),(2),(3)) AS R')))
+		.then(c =>
+		{
+			expect(c).a('number')
+			expect(c).equal(3)
+		})
+	})
 })
