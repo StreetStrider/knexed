@@ -11,6 +11,22 @@ var ds = dataset.series(kx, 1, 4)
 
 describe('query/exists', () =>
 {
+	it.only('x', () =>
+	{
+		return ds
+		.then(ds =>
+		{
+			// console.dir(ds().client.raw)
+			// console.log('' + ds().client.raw)
+			// console.log('' + kx.raw)
+
+			// console.dir(ds())
+			console.dir(ds().client)
+			console.dir(ds().distinct)
+			console.dir(kx.select)
+		})
+	})
+
 	it('returns true on non-empty table', () =>
 	{
 		return ds

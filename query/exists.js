@@ -3,5 +3,7 @@
 module.exports = function exists (query /* :Query */)
 	/* :Promise<boolean> */
 {
-	return Promise.resolve(false)
+	// var kx = query.client
+
+	return kx.select(kx.raw('exists ? AS existence', query))//.from()
 }
