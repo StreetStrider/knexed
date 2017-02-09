@@ -31,7 +31,7 @@
   "scripts":
   {
     "st":    "eslint *.js tx/ table/ query/ test/",
-    "flow":  "flow",
+    "flow":  "flow check",
 
     "test":                  "mocha    --check-leaks --recursive test/**.test.js test/**/*.test.js",
     "cover": "istanbul cover _mocha -- --check-leaks --recursive test/**.test.js test/**/*.test.js",
