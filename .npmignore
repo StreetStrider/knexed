@@ -1,4 +1,7 @@
+
 /coverage
 /test
+.npmignore
 .eslintrc.js
+.flowconfig
 .travis.yml
