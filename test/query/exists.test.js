@@ -62,4 +62,40 @@ describe('query/exists', () =>
 			expect(e).equal(true)
 		})
 	})
+
+	it('works with tx', () =>
+	{
+		return ds
+		.then(ds =>
+		{
+			var dst = (tx) => ds().transacting(tx)
+
+			return kx.transaction(tx =>
+			{
+				return Promise.resolve()
+				.then(() =>
+				{
+					return exists(dst(tx).where('n', '>=', 10))
+				})
+				.then(e =>
+				{
+					expect(e).a('boolean')
+					expect(e).equal(false)
+				})
+				.then(() =>
+				{
+					return dst(tx).insert({ n: 11 })
+				})
+				.then(() =>
+				{
+					return exists(dst(tx).where('n', '>=', 10))
+				})
+				.then(e =>
+				{
+					expect(e).a('boolean')
+					expect(e).equal(true)
+				})
+			})
+		})
+	})
 })
