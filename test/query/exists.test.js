@@ -9,27 +9,8 @@ var exists = require('../../query/exists')
 
 var ds = dataset.series(kx, 1, 4)
 
-describe.only('query/exists', () =>
+describe('query/exists', () =>
 {
-	it('x', () =>
-	{
-		return ds
-		.then(ds =>
-		{
-			console.dir(ds().client.raw)
-			// console.log('' + ds().client.raw)
-			// console.log('' + kx.raw)
-
-			// console.log(ds().client)
-
-			// var qb = ds().client.queryBuilder()
-			// console.dir(qb.select('a'))
-			// console.dir(qb.select('a').toQuery())
-
-			// console.log(exists(ds()).toQuery())
-		})
-	})
-
 	it('returns true on non-empty table', () =>
 	{
 		return ds
