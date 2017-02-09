@@ -33,11 +33,11 @@
     "st":    "eslint *.js tx/ table/ query/ test/",
     "flow":  "flow check",
 
-    "test":                  "mocha    --check-leaks --recursive test/**.test.js test/**/*.test.js",
+    "mocha":                 "mocha    --check-leaks --recursive test/**.test.js test/**/*.test.js",
     "cover": "istanbul cover _mocha -- --check-leaks --recursive test/**.test.js test/**/*.test.js",
 
-    "check": "npm run st && npm run flow",
-    "all":   "npm run check && npm run cover",
+    "test":  "npm run st && npm run flow && npm run mocha",
+    "all":   "npm test   && npm run cover",
 
     "coveralls": "istanbul-coveralls"
   },
