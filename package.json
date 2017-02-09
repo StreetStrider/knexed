@@ -72,6 +72,6 @@
       "^3.5",
 
     "js-outlander":
-      "StrangeTransistor/js-outlander#2.0.8"
+      "StrangeTransistor/js-outlander#2.1.0"
   }
 }
