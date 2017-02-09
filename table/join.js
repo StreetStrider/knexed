@@ -51,14 +51,14 @@ function join_by_type (join_type /* :string */)
 		var asL = pick_actual_alias(left)
 		var asR = pick_actual_alias(right)
 
-		predicate = compile_predicate(asL, asR, predicate)
+		var $predicate = compile_predicate(asL, asR, predicate)
 
 		return (tx /* :TransactionOptional */) =>
 		{
 			return tableL
 			.as(asL, tx)[join_type](
 				tableR.relname(asR),
-				predicate[0], predicate[1], predicate[2]
+				$predicate[0], $predicate[1], $predicate[2]
 			)
 		}
 	}
@@ -138,6 +138,7 @@ function compile_predicate
 			return [
 				L + '.' + predicate[0],
 				 predicate[1],
+				/* @flow-off */
 				R + '.' + predicate[2]
 			]
 		}

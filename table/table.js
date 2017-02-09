@@ -9,7 +9,7 @@
      as: (alias :?string, tx :TransactionOptional) => Query,
 
      relname: (alias :?string) => string,
-     toString: () => string
+     +toString: () => string
    };
 */
 
@@ -39,6 +39,7 @@ module.exports = function table (kx /* :Knex */, table_name /* :string */)
 		return table_name
 	}
 
+	/* @flow-off */
 	t.toString = () =>
 	{
 		return relname()
