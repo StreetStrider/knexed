@@ -9,21 +9,24 @@ var exists = require('../../query/exists')
 
 var ds = dataset.series(kx, 1, 4)
 
-describe('query/exists', () =>
+describe.only('query/exists', () =>
 {
-	it.only('x', () =>
+	it('x', () =>
 	{
 		return ds
 		.then(ds =>
 		{
-			// console.dir(ds().client.raw)
+			console.dir(ds().client.raw)
 			// console.log('' + ds().client.raw)
 			// console.log('' + kx.raw)
 
-			// console.dir(ds())
-			console.dir(ds().client)
-			console.dir(ds().distinct)
-			console.dir(kx.select)
+			// console.log(ds().client)
+
+			// var qb = ds().client.queryBuilder()
+			// console.dir(qb.select('a'))
+			// console.dir(qb.select('a').toQuery())
+
+			// console.log(exists(ds()).toQuery())
 		})
 	})
 
