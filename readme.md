@@ -99,9 +99,28 @@ join(accounts, messages, 'id')
 join([ accounts, 'A' ], [ messages, 'M' ], [ 'id', 'user_id' ])
 ```
 
+### query helpers
+This helpers transform generated query.
+```js
+var accounts = table(knex, 'accounts')
+
+var q = accounts().where('id', '>', 1000)
+
+/* `query/count` transforms query into COUNT() one */
+var qc = count(q) // returning `number`
+
+/* `query/exists` transforms query into EXISTS(SELECT …) */
+var qe = exists(q) // returning `boolean`
+```
+
+Note that `count` & `exists` from dataset helpers works on returning
+dataset, which means streaming potentially large amount of redundant data from
+database driver to client. In contrast `query/count` & `query/exists`
+works on driver's side, sending to client only simple scalars.
+
 ## flow
 We're providing built-in [Flow](https://flowtype.org/) type definitions.
 
 ## license
 MIT.
-© Strider, 2016.
+© Strider, 2016 — 2017.
