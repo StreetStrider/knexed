@@ -1,11 +1,11 @@
 {
   "name":    "knexed",
-  "version": "1.0.0",
+  "version": "1.1.0",
 
   "description": "Knex utilities",
 
   "license":    "MIT",
-  "author":     "Strider <teamfortresslife@gmail.com>",
+  "author":     "Strider <strange.transistor@gmail.com>",
   "repository": "StreetStrider/knexed",
 
   "keywords":
