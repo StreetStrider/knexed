@@ -1,12 +1,12 @@
 /* @flow */
 /* ::
-   export type TableFn = (tx :TransactionOptional) => Query;
+   export type TableFn = (tx :Knex$Transaction$Optional) => Knex$Query;
 
    export type Table
    = TableFn
    &
    {
-     as: (alias :?string, tx :TransactionOptional) => Query,
+     as: (alias :?string, tx :Knex$Transaction$Optional) => Knex$Query,
 
      relname: (alias :?string) => string,
      +toString: () => string
@@ -16,12 +16,12 @@
 module.exports = function table (kx /* :Knex */, table_name /* :string */)
 	/* :Table */
 {
-	var t = (tx /* :TransactionOptional */) =>
+	var t = (tx /* :Knex$Transaction$Optional */) =>
 	{
 		return transacted(kx, table_name, tx)
 	}
 
-	t.as = (alias /* :?string */, tx /* :TransactionOptional */) =>
+	t.as = (alias /* :?string */, tx /* :Knex$Transaction$Optional */) =>
 	{
 		return transacted(kx, relname(alias), tx)
 	}
@@ -52,9 +52,9 @@ function transacted
 (
 	kx         /* :Knex */,
 	table_name /* :string */,
-	tx         /* :TransactionOptional */
+	tx         /* :Knex$Transaction$Optional */
 )
-	/* :Query */
+	/* :Knex$Query */
 {
 	return kx(table_name)
 	.transacting(tx)

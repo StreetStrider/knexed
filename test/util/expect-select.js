@@ -5,7 +5,7 @@ var expect = require('chai').expect
 module.exports = function
 /* ::<T> */
 (
-	select /* :Query */,
+	select /* :Knex$Query */,
 	rows   /* :Array<T> */
 )
 {

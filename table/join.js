@@ -53,7 +53,7 @@ function join_by_type (join_type /* :string */)
 
 		var $predicate = compile_predicate(asL, asR, predicate)
 
-		return (tx /* :TransactionOptional */) =>
+		return (tx /* :Knex$Transaction$Optional */) =>
 		{
 			return tableL
 			.as(asL, tx)[join_type](
@@ -74,7 +74,7 @@ join.cross = function cross_join (left /* :TableRef */, right /* :TableRef */)
 	var asL = pick_actual_alias(left)
 	var asR = pick_actual_alias(right)
 
-	return (tx /* :TransactionOptional */) =>
+	return (tx /* :Knex$Transaction$Optional */) =>
 	{
 		return tableL
 		.as(asL, tx)

@@ -1,6 +1,6 @@
 /* @flow */
 
-module.exports = function count (query /* :Query */)
+module.exports = function count (query /* :Knex$Query */)
 	/* :Promise<number> */
 {
 	return query.count('* as count')

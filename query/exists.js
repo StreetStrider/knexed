@@ -1,6 +1,6 @@
 /* @flow */
 
-module.exports = function exists (query /* :Query */)
+module.exports = function exists (query /* :Knex$Query */)
 	/* :Promise<boolean> */
 {
 	var client = query.client

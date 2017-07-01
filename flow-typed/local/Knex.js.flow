@@ -1,19 +1,19 @@
 
 type Knex = Object & Function;
 
-type Transaction =
+type Knex$Transaction =
 {
   transaction: Object,
-  savepoint:   Function
+  savepoint:   Function,
 };
 
-type TransactionOptional
-= Transaction
+type Knex$Transaction$Optional
+= Knex$Transaction
 | void
 | null
 | Symbol; /* NOTX */
 
-type Query
+type Knex$Query
 = Object /* non-sealed */
 &
 Promise<mixed>
@@ -26,5 +26,5 @@ Promise<mixed>
 
   join: Function,
 
-  toQuery: Function
+  toQuery: Function,
 };
