@@ -1,7 +1,10 @@
 /* @flow */
 /* ::
-   type RetPromise<T>   = (                      ...args: Array<any>) => Promise<T>;
-   type TxRetPromise<T> = (tx: Knex$Transaction, ...args: Array<any>) => Promise<T>;
+   type RetPromise<T>
+    = (                      ...args: Array<any>) => Promise<T>
+
+   type TxRetPromise<T>
+    = (tx: Knex$Transaction, ...args: Array<any>) => Promise<T>
 */
 
 var slice = [].slice
