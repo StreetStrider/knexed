@@ -9,7 +9,9 @@
      as: (alias :?string, tx :Knex$Transaction$Optional) => Knex$Query,
 
      relname: (alias :?string) => string,
-     +toString: () => string
+     +toString: () => string,
+
+     kx: Knex,
    };
 */
 
@@ -20,6 +22,8 @@ module.exports = function table (kx /* :Knex */, table_name /* :string */)
 	{
 		return transacted(kx, table_name, tx)
 	}
+
+	t.kx = kx
 
 	t.as = (alias /* :?string */, tx /* :Knex$Transaction$Optional */) =>
 	{

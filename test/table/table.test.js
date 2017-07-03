@@ -28,6 +28,9 @@ describe('table', () =>
 
 		expect(t).property('as')
 		expect(t.as).a('function')
+
+		expect(t).property('kx')
+		expect(t.kx).equal(kx)
 	})
 
 	it('relname, relname with alias', () =>
