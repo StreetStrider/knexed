@@ -49,3 +49,34 @@ dataset.series = function series
 
 	return dataset(kx, table => table.integer('n'), datarange)
 }
+
+
+var map = require('lodash/map')
+
+dataset.keyvalue = function keyvalue
+(
+	kx      /* :Knex */,
+	keyname /* :string */,
+	kv      /* { [ key: number ]: string } */
+)
+{
+	var data = map(kv, (v, k) =>
+	{
+		var it =
+		{
+			value: v
+		}
+
+		it[keyname] = k
+
+		return it
+	})
+
+	return dataset(kx,
+	table =>
+	{
+		table.integer(keyname).primary()
+		table.string('value')
+	}
+	, data)
+}
