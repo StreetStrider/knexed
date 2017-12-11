@@ -6,6 +6,7 @@ module.exports = function test_error (
 	pattern /* :ErrorPattern */,
 	fn      /* :FnPromise */
 )
+	/* :Promise<void> */
 {
 	return fn()
 	.then(
