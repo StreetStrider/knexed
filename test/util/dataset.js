@@ -12,7 +12,7 @@ var dataset
 )
 {
 	var name = 'dataset' + next
-	++ next
+	++next
 
 	return kx.schema.createTable(name, schema)
 	.then(() =>
