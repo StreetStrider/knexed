@@ -19,6 +19,8 @@ I prefer query builders over other two and find it a perfect balance.
 The lead query builder in JS ecosystem is **Knex**. I don't like it much for poor code style & architecture, not so good API. Yes, Knex is not perfect, however this is the leading project in this area and it tends to stay so. It working, it will receive updates, fixes and improves. I decided to build a better abstractions over it with composability and much more JS/Lispy-crazy-science-style in mind. The only restriction is not to fall into ORM-ish style. So this library contains only simple helpers and composable abstractions. Feel free to use another good solutions (like [Bluebird's Promise extensions](http://bluebirdjs.com/docs/api-reference.html) which is built-in for Knex, [Lodash/fp](https://github.com/lodash/lodash/wiki/FP-Guide), [Ramda & lenses](http://ramdajs.com/) etc) along the way.
 
 ## API
+Import / require modules you need explicitly. Most of functionality is accessible from the root of the package, like `require('knexed/one')`, `require('knexed/exists')`. Some utilities are bundled into groups by usage, like `require('knexed/table/table')`, `require('knexed/table/join')`. The group of utility is mentioned in the braces below.
+
 ### dataset helpers
 ```js
 knex('table').select()
@@ -99,7 +101,7 @@ join(accounts, messages, 'id')
 join([ accounts, 'A' ], [ messages, 'M' ], [ 'id', 'user_id' ])
 ```
 
-### query helpers
+### query helpers (`query`)
 This helpers transform generated query.
 ```js
 var accounts = table(knex, 'accounts')
