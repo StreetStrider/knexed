@@ -11,11 +11,10 @@ export type Table
 = TableFn
 &
 {
-  as: (alias :?string, tx :Knex$Transaction$Optional<any>)
-  => $QueryBuilder<any>,
+  as(alias :?string, tx :Knex$Transaction$Optional<any>): $QueryBuilder<any>,
 
-  relname: (alias :?string) => string,
-  +toString: () => string,
+  relname(alias :?string): string,
+  toString(): string,
 
   kx: Knex,
 }
