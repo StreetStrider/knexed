@@ -52,6 +52,9 @@ module.exports = function table (kx /* :Knex */, table_name /* :string */)
 	return t
 }
 
+
+var NOTX = require('../tx/method').NOTX
+
 function transacted
 (
 	kx         /* :Knex */,
@@ -60,6 +63,16 @@ function transacted
 )
 	/* :Knex$Query */
 {
-	return kx(table_name)
-	.transacting(tx)
+	var q = kx(table_name)
+
+	if (! tx)
+	{
+		return q
+	}
+	if (tx === NOTX)
+	{
+		return q
+	}
+
+	return q.transacting(tx)
 }
