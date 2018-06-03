@@ -1,11 +1,16 @@
 /* @flow */
+/* ::
+
+import type { $QueryBuilder } from 'knex'
+
+*/
 
 var expect = require('chai').expect
 
 module.exports = function
 /* ::<T> */
 (
-	select /* :Knex$Query */,
+	select /* :$QueryBuilder<T> */,
 	rows   /* :Array<T> */
 )
 {

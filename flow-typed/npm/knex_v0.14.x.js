@@ -138,6 +138,9 @@ declare class Knex$QueryBuilder<R> mixins Promise<R> {
   returning(columns: string[]): this;
   forUpdate(): this;
   forShare(): this;
+
+  toQuery(): string;
+  client: any;
 }
 
 type MigrateConfig = {|
@@ -163,6 +166,8 @@ declare class Knex$Knex<R>
   };
   client: any;
   destroy(): Promise<void>;
+
+  schema: any;
 }
 
 declare type Knex$PostgresConfig = {

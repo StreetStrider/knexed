@@ -1,31 +1,39 @@
 /* @flow */
 /* ::
-   export type TableFn = (tx :Knex$Transaction$Optional) => Knex$Query;
 
-   export type Table
-   = TableFn
-   &
-   {
-     as: (alias :?string, tx :Knex$Transaction$Optional) => Knex$Query,
+import type { Knex } from 'knex'
+import type { $QueryBuilder } from 'knex'
 
-     relname: (alias :?string) => string,
-     +toString: () => string,
+export type TableFn = (tx :Knex$Transaction$Optional<any>)
+=> $QueryBuilder<any>;
 
-     kx: Knex,
-   };
+export type Table
+= TableFn
+&
+{
+  as: (alias :?string, tx :Knex$Transaction$Optional<any>)
+  => $QueryBuilder<any>,
+
+  relname: (alias :?string) => string,
+  +toString: () => string,
+
+  kx: Knex,
+}
+
 */
 
+// TODO: generic
 module.exports = function table (kx /* :Knex */, table_name /* :string */)
 	/* :Table */
 {
-	var t = (tx /* :Knex$Transaction$Optional */) =>
+	var t = (tx /* :Knex$Transaction$Optional<any> */) =>
 	{
 		return transacted(kx, table_name, tx)
 	}
 
 	t.kx = kx
 
-	t.as = (alias /* :?string */, tx /* :Knex$Transaction$Optional */) =>
+	t.as = (alias /* :?string */, tx /* :Knex$Transaction$Optional<any> */) =>
 	{
 		return transacted(kx, relname(alias), tx)
 	}
@@ -55,13 +63,14 @@ module.exports = function table (kx /* :Knex */, table_name /* :string */)
 
 var NOTX = require('../tx/method').NOTX
 
+// TODO: generic
 function transacted
 (
 	kx         /* :Knex */,
 	table_name /* :string */,
-	tx         /* :Knex$Transaction$Optional */
+	tx         /* :Knex$Transaction$Optional<any> */
 )
-	/* :Knex$Query */
+	/* :$QueryBuilder<any> */
 {
 	var q = kx(table_name)
 
@@ -73,6 +82,9 @@ function transacted
 	{
 		return q
 	}
+
+	/* @flow-off */
+	/* :: tx = (tx :Knex$Transaction$Optional<any>) */
 
 	return q.transacting(tx)
 }

@@ -1,6 +1,11 @@
 /* @flow */
+/* ::
 
-module.exports = function exists (query /* :Knex$Query */)
+import type { $QueryBuilder } from 'knex'
+
+*/
+
+module.exports = function exists (query /* :$QueryBuilder<any> */)
 	/* :Promise<boolean> */
 {
 	var client = query.client

@@ -1,10 +1,14 @@
 /* @flow */
 /* ::
-   type RetPromise<T>
-    = (                      ...args: Array<any>) => Promise<T>
 
-   type TxRetPromise<T>
-    = (tx: Knex$Transaction, ...args: Array<any>) => Promise<T>
+import type { Knex } from 'knex'
+
+type RetPromise<T>
+= (                         ...args: Array<any>) => Promise<T>
+
+type TxRetPromise<T>
+= (tx: Knex$Transaction<T>, ...args: Array<any>) => Promise<T>
+
 */
 
 var slice = [].slice
@@ -22,7 +26,7 @@ var method
 {
 	return function
 	(
-		tx /* :Knex$Transaction$Optional */
+		tx /* :Knex$Transaction$Optional<T> */
 		/* ::, ...args: Array<any> */
 	)
 		/* :Promise<T> */

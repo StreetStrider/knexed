@@ -1,4 +1,9 @@
 /* @flow */
+/* ::
+
+import type { Knex } from 'knex'
+
+*/
 
 var next = 1
 

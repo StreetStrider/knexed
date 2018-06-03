@@ -439,6 +439,7 @@ describe('join', () =>
 			.orWhere('id1', 1)
 			.orWhere(`id2`, 1)
 
+			/* @flow-off */
 			return expect_select(q.then(sorted),
 				sorted(
 				[

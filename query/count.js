@@ -1,6 +1,11 @@
 /* @flow */
+/* ::
 
-module.exports = function count (query /* :Knex$Query */)
+import type { $QueryBuilder } from 'knex'
+
+*/
+
+module.exports = function count (query /* :$QueryBuilder<any> */)
 	/* :Promise<number> */
 {
 	return query.count('* as count')
