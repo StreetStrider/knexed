@@ -9,11 +9,11 @@ export type Knex$Transaction$Optional<T>
 | null
 | Symbol // NOTX
 
-export type RetPromise<T>
-= (                         ...args: Array<any>) => Promise<T>
+export type $Async<T>
+= (...args: Array<any>) => Bluebird$Promise<T>
 
-export type TxRetPromise<T>
-= (tx: Knex$Transaction<T>, ...args: Array<any>) => Promise<T>
+export type $Async$Tx<T>
+= (tx: Knex$Transaction<T>, ...args: Array<any>) => Bluebird$Promise<T>
 
 */
 
@@ -26,16 +26,16 @@ var method
  = function method /* ::<T> */
 (
 	kx /* :Knex */,
-	fn /* :TxRetPromise<T> */
+	fn /* :$Async$Tx<T> */
 )
-	/* :RetPromise<T> */
+	/* :$Async<T> */
 {
 	return function
 	(
 		tx /* :Knex$Transaction$Optional<T> */
 		/* ::, ...args: Array<any> */
 	)
-		/* :Promise<T> */
+		/* :Bluebird$Promise<T> */
 	{
 		if (is(tx))
 		{

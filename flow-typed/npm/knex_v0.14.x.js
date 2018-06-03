@@ -2,7 +2,7 @@
 // flow-typed version: 17eb9a67ff/knex_v0.14.x/flow_>=v0.38.x
 
 declare class Knex$Transaction<R>
-  mixins Knex$QueryBuilder<R>, events$EventEmitter, Promise<R> {
+  mixins Knex$QueryBuilder<R>, events$EventEmitter, Bluebird$Promise<R>, Promise<R> {
   $call: (tableName: string) => Knex$QueryBuilder<R>;  
   commit(connection?: any, value?: any): Promise<R>;
   rollback(?Error): Promise<R>;
@@ -13,12 +13,12 @@ declare type Knex$QueryBuilderFn<R> = (
   qb: Knex$QueryBuilder<R>
 ) => Knex$QueryBuilder<R> | void;
 
-declare class Knex$QueryBuilder<R> mixins Promise<R> {
+declare class Knex$QueryBuilder<R> mixins Bluebird$Promise<R>, Promise<R> {
   clearSelect(): this;
   clearWhere(): this;
   select(key?: string[]): this;
   select(...key: string[]): this;
-  timeout(ms: number, options?: { cancel: boolean }): this;
+  // timeout(ms: number, options?: { cancel: boolean }): this;
   column(key: string[]): this;
   column(...key: string[]): this;
   with(alias: string, w: string | Knex$QueryBuilderFn<R>): this;
@@ -152,7 +152,7 @@ type MigrateConfig = {|
 |};
 
 declare class Knex$Knex<R>
-  mixins Knex$QueryBuilder<R>, Promise<R>, events$EventEmitter {
+  mixins Knex$QueryBuilder<R>, Bluebird$Promise<R>, Promise<R>, events$EventEmitter {
   static (config: Knex$Config): Knex$Knex<R>;
   static QueryBuilder: typeof Knex$QueryBuilder;
   $call: (tableName: string) => Knex$QueryBuilder<R>;
