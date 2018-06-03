@@ -1,6 +1,0 @@
-
-type Knex$Transaction$Optional<T>
-= Knex$Transaction<T>
-| void
-| null
-| Symbol /* NOTX */

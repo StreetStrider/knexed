@@ -1,6 +1,8 @@
 /* @flow */
 /* ::
    import type { TableFn, Table } from '../table/table';
+   import type { Knex$Transaction$Optional } from '../tx/method';
+
 
    type Join = TableFn;
 

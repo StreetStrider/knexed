@@ -4,6 +4,8 @@
 import type { Knex } from 'knex'
 import type { $QueryBuilder } from 'knex'
 
+import type { Knex$Transaction$Optional } from '../tx/method'
+
 export type TableFn = (tx :Knex$Transaction$Optional<any>)
 => $QueryBuilder<any>;
 

@@ -3,10 +3,16 @@
 
 import type { Knex } from 'knex'
 
-type RetPromise<T>
+export type Knex$Transaction$Optional<T>
+= Knex$Transaction<T>
+| void
+| null
+| Symbol // NOTX
+
+export type RetPromise<T>
 = (                         ...args: Array<any>) => Promise<T>
 
-type TxRetPromise<T>
+export type TxRetPromise<T>
 = (tx: Knex$Transaction<T>, ...args: Array<any>) => Promise<T>
 
 */
