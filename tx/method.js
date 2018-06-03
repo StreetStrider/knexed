@@ -13,6 +13,9 @@ export type $Async<T>
 = (...args: Array<any>) => Bluebird$Promise<T>
 
 export type $Async$Tx<T>
+= (tx: Knex$Transaction<T>, ...args: Array<any>) => $Promisable<T>
+
+export type $Async$Tx$Strict<T>
 = (tx: Knex$Transaction<T>, ...args: Array<any>) => Bluebird$Promise<T>
 
 */
@@ -20,6 +23,8 @@ export type $Async$Tx<T>
 var slice = [].slice
 
 var is = require('./is-tx')
+
+var bmethod = require('bluebird').method
 
 var method
  = module.exports
@@ -30,6 +35,8 @@ var method
 )
 	/* :$Async<T> */
 {
+	var fn$ /* :$Async$Tx$Strict<T> */ = bmethod(fn)
+
 	return function
 	(
 		tx /* :Knex$Transaction$Optional<T> */
@@ -39,11 +46,11 @@ var method
 	{
 		if (is(tx))
 		{
-			return fn.apply(this, arguments)
+			return fn$.apply(this, arguments)
 		}
 		else if (tx === NOTX)
 		{
-			return fn.apply(this, arguments)
+			return fn$.apply(this, arguments)
 		}
 		else
 		{
@@ -51,7 +58,7 @@ var method
 
 			return kx.transaction(tx =>
 			{
-				return fn.apply(this, [ tx ].concat(args))
+				return fn$.apply(this, [ tx ].concat(args))
 			})
 		}
 	}

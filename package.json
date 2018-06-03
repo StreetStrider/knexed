@@ -42,6 +42,11 @@
     "coveralls": "istanbul-coveralls"
   },
 
+  "dependencies":
+  {
+    "bluebird": "3"
+  },
+
   "devDependencies":
   {
     "knex":
