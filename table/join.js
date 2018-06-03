@@ -1,33 +1,31 @@
 /* @flow */
 /* ::
-   import type { TableFn, Table } from '../table/table';
-   import type { Knex$Transaction$Optional } from '../tx/method';
 
+import type { TableFn, Table } from '../table/table'
+import type { Knex$Transaction$Optional } from '../tx/method'
 
-   type Join = TableFn;
+type Join = TableFn
 
-   type TableRef
-   = Alias
-   | Table
-   ;
+type TableRef
+= Alias
+| Table
 
-   type Alias = [ Table, string ];
+type Alias = [ Table, string ]
 
-   export type Predicate
-   = [ string, Operator, string ]
-   | [ string, string ]
-   |   string
-   ;
+export type Predicate
+= [ string, Operator, string ]
+| [ string, string ]
+|   string
 
-   type Operator
-   = '='
-   | '>'
-   | '<'
-   | '>='
-   | '<='
-   | '<>'
-   | '!='
-   ;
+type Operator
+= '='
+| '>'
+| '<'
+| '>='
+| '<='
+| '<>'
+| '!='
+
 */
 
 var join   = module.exports = join_by_type('innerJoin')
