@@ -45,7 +45,7 @@
   "devDependencies":
   {
     "knex":
-      "0.13",
+      "0.14",
 
     "mocha":
       "3",

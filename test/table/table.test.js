@@ -53,7 +53,7 @@ describe('table', () =>
 			var q = t().select().where('n', 1)
 
 			expect(q.toQuery())
-			.equal(`select * from "${name}" where "n" = 1`)
+			.equal(`select * from \`${name}\` where \`n\` = 1`)
 
 			return expect_select(q, [ { n: 1 } ])
 		})
@@ -71,7 +71,7 @@ describe('table', () =>
 			var q = t().select().where('n', 1)
 
 			expect(q.toQuery())
-			.equal(`select * from "${name}" where "n" = 1`)
+			.equal(`select * from \`${name}\` where \`n\` = 1`)
 
 			return expect_select(q, [ { n: 1 } ])
 			.then(() =>
@@ -79,7 +79,7 @@ describe('table', () =>
 				var q = t().select().where('n', 2)
 
 				expect(q.toQuery())
-				.equal(`select * from "${name}" where "n" = 2`)
+				.equal(`select * from \`${name}\` where \`n\` = 2`)
 
 				return expect_select(q, [ { n: 2 } ])
 			})
@@ -165,7 +165,7 @@ describe('table.as', () =>
 			var q = t.as('alias').select().where('n', 1)
 
 			expect(q.toQuery())
-			.equal(`select * from "${name}" as "alias" where "n" = 1`)
+			.equal(`select * from \`${name}\` as \`alias\` where \`n\` = 1`)
 
 			return expect_select(
 				q,
@@ -188,7 +188,7 @@ describe('table.as', () =>
 				var q = t.as('alias', tx).select().where('n', 1)
 
 				expect(q.toQuery())
-				.equal(`select * from "${name}" as "alias" where "n" = 1`)
+				.equal(`select * from \`${name}\` as \`alias\` where \`n\` = 1`)
 
 				return expect_select(
 					q,
@@ -212,7 +212,7 @@ describe('table.as', () =>
 			var q = t.as('alias', no).select().where('n', 1)
 
 			expect(q.toQuery())
-			.equal(`select * from "${name}" as "alias" where "n" = 1`)
+			.equal(`select * from \`${name}\` as \`alias\` where \`n\` = 1`)
 
 			return expect_select(
 				q,
@@ -235,7 +235,7 @@ describe('table.as', () =>
 				var q = t.as(null, tx).select().where('n', 1)
 
 				expect(q.toQuery())
-				.equal(`select * from "${name}" where "n" = 1`)
+				.equal(`select * from \`${name}\` where \`n\` = 1`)
 
 				return expect_select(
 					q,
@@ -259,7 +259,7 @@ describe('table.as', () =>
 			var q = t.as(null, no).select().where('n', 1)
 
 			expect(q.toQuery())
-			.equal(`select * from "${name}" where "n" = 1`)
+			.equal(`select * from \`${name}\` where \`n\` = 1`)
 
 			return expect_select(
 				q,
@@ -280,7 +280,7 @@ describe('table.as', () =>
 			var q = t.as(name).select().where('n', 1)
 
 			expect(q.toQuery())
-			.equal(`select * from "${name}" where "n" = 1`)
+			.equal(`select * from \`${name}\` where \`n\` = 1`)
 
 			return expect_select(
 				q,

@@ -108,8 +108,8 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select * from "${ds1.relname()}" inner join "${ds2.relname()}"` +
-				` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"`)
+			`select * from \`${ds1.relname()}\` inner join \`${ds2.relname()}\`` +
+			` on \`${ds1.relname()}\`.\`id\` = \`${ds2.relname()}\`.\`id\``)
 
 			return expect_select(q, expected_resultset.main)
 		})
@@ -129,8 +129,8 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select * from "${ds1.relname()}" inner join "${ds2.relname()}"` +
-				` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"`
+			`select * from \`${ds1.relname()}\` inner join \`${ds2.relname()}\`` +
+			` on \`${ds1.relname()}\`.\`id\` = \`${ds2.relname()}\`.\`id\``
 			)
 
 			return expect_select(q, expected_resultset.main)
@@ -141,10 +141,10 @@ describe('join', () =>
 
 				expect(q.toQuery())
 				.equal(
-					`select * from "${ds1.relname()}"` +
-					` inner join "${ds2.relname()}"` +
-					` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"` +
-					` where "${ds1.relname()}"."id" = 1`
+					`select * from \`${ds1.relname()}\`` +
+					` inner join \`${ds2.relname()}\`` +
+					` on \`${ds1.relname()}\`.\`id\` = \`${ds2.relname()}\`.\`id\`` +
+					` where \`${ds1.relname()}\`.\`id\` = 1`
 				)
 
 				return expect_select(q,
@@ -159,10 +159,10 @@ describe('join', () =>
 
 				expect(q.toQuery())
 				.equal(
-					`select * from "${ds1.relname()}"` +
-					` inner join "${ds2.relname()}"` +
-					` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"` +
-					` where "${ds1.relname()}"."id" = 3`
+					`select * from \`${ds1.relname()}\`` +
+					` inner join \`${ds2.relname()}\`` +
+					` on \`${ds1.relname()}\`.\`id\` = \`${ds2.relname()}\`.\`id\`` +
+					` where \`${ds1.relname()}\`.\`id\` = 3`
 				)
 
 				return expect_select(q,
@@ -187,8 +187,8 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select * from "${ds1.relname()}" inner join "${ds2.relname()}"` +
-				` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"`)
+			`select * from \`${ds1.relname()}\` inner join \`${ds2.relname()}\`` +
+			` on \`${ds1.relname()}\`.\`id\` = \`${ds2.relname()}\`.\`id\``)
 
 			return expect_select(q, expected_resultset.main)
 		})
@@ -208,9 +208,9 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select "id_alt", "name", "mark" from "${ds1.relname()}"` +
-				` inner join "${ds2.relname()}"` +
-				` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id_alt"`)
+				`select \`id_alt\`, \`name\`, \`mark\` from \`${ds1.relname()}\`` +
+				` inner join \`${ds2.relname()}\`` +
+				` on \`${ds1.relname()}\`.\`id\` = \`${ds2.relname()}\`.\`id_alt\``)
 
 			return expect_select(q, expected_resultset.alt)
 		})
@@ -230,8 +230,8 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select * from "${ds1.relname()}" inner join "${ds2.relname()}"` +
-				` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"`)
+			`select * from \`${ds1.relname()}\` inner join \`${ds2.relname()}\`` +
+			` on \`${ds1.relname()}\`.\`id\` = \`${ds2.relname()}\`.\`id\``)
 
 			return expect_select(q, expected_resultset.main)
 		})
@@ -251,9 +251,9 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select "id_alt", "name", "mark" from "${ds1.relname()}"` +
-				` inner join "${ds2.relname()}"` +
-				` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id_alt"`)
+				`select \`id_alt\`, \`name\`, \`mark\` from \`${ds1.relname()}\`` +
+				` inner join \`${ds2.relname()}\`` +
+				` on \`${ds1.relname()}\`.\`id\` = \`${ds2.relname()}\`.\`id_alt\``)
 
 			return expect_select(q, expected_resultset.alt)
 		})
@@ -353,9 +353,9 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select *, "${ds1.relname()}"."id" from "${ds1.relname()}"` +
-				` left join "${ds2.relname()}"` +
-				` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"`)
+				`select *, \`${ds1.relname()}\`.\`id\` from \`${ds1.relname()}\`` +
+				` left join \`${ds2.relname()}\`` +
+				` on \`${ds1.relname()}\`.\`id\` = \`${ds2.relname()}\`.\`id\``)
 
 			return expect_select(q, expected_resultset.left)
 		})
@@ -375,9 +375,9 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select *, "${ds2.relname()}"."id" from "${ds1.relname()}"` +
-				` right join "${ds2.relname()}"` +
-				` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"`)
+				`select *, \`${ds2.relname()}\`.\`id\` from \`${ds1.relname()}\`` +
+				` right join \`${ds2.relname()}\`` +
+				` on \`${ds1.relname()}\`.\`id\` = \`${ds2.relname()}\`.\`id\``)
 
 			/*
 				// not implemented in SQLite:
@@ -400,9 +400,9 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select * from "${ds1.relname()}"` +
-				` full outer join "${ds2.relname()}"` +
-				` on "${ds1.relname()}"."id" = "${ds2.relname()}"."id"`)
+				`select * from \`${ds1.relname()}\`` +
+				` full outer join \`${ds2.relname()}\`` +
+				` on \`${ds1.relname()}\`.\`id\` = \`${ds2.relname()}\`.\`id\``)
 
 			/*
 				// not implemented in SQLite:
@@ -425,7 +425,7 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select * from "${ds1.relname()}" cross join "${ds2.relname()}"`)
+			`select * from \`${ds1.relname()}\` cross join \`${ds2.relname()}\``)
 
 			/* another test with relatively small output */
 			var j2 = join.cross(ds1, ds2)
@@ -475,9 +475,9 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select * from "${ds1.relname()}" as "ds1"` +
-				` inner join "${ds2.relname()}"` +
-				` on "ds1"."id" = "${ds2.relname()}"."id"`)
+				`select * from \`${ds1.relname()}\` as \`ds1\`` +
+				` inner join \`${ds2.relname()}\`` +
+				` on \`ds1\`.\`id\` = \`${ds2.relname()}\`.\`id\``)
 
 			return expect_select(q, expected_resultset.main)
 		})
@@ -497,9 +497,9 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select * from "${ds1.relname()}"` +
-				` inner join "${ds2.relname()}" as "ds2"` +
-				` on "${ds1.relname()}"."id" = "ds2"."id"`)
+				`select * from \`${ds1.relname()}\`` +
+				` inner join \`${ds2.relname()}\` as \`ds2\`` +
+				` on \`${ds1.relname()}\`.\`id\` = \`ds2\`.\`id\``)
 
 			return expect_select(q, expected_resultset.main)
 		})
@@ -519,9 +519,9 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select * from "${ds1.relname()}" as "ds1"` +
-				` inner join "${ds2.relname()}" as "ds2"` +
-				` on "ds1"."id" = "ds2"."id"`)
+				`select * from \`${ds1.relname()}\` as \`ds1\`` +
+				` inner join \`${ds2.relname()}\` as \`ds2\`` +
+				` on \`ds1\`.\`id\` = \`ds2\`.\`id\``)
 
 			return expect_select(q, expected_resultset.main)
 		})
@@ -541,10 +541,10 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select "id_alt", "name", "mark"` +
-				` from "${ds1.relname()}" as "ds1"` +
-				` inner join "${ds2.relname()}" as "ds2"` +
-				` on "ds1"."id" = "ds2"."id_alt"`)
+				`select \`id_alt\`, \`name\`, \`mark\`` +
+				` from \`${ds1.relname()}\` as \`ds1\`` +
+				` inner join \`${ds2.relname()}\` as \`ds2\`` +
+				` on \`ds1\`.\`id\` = \`ds2\`.\`id_alt\``)
 
 			return expect_select(q, expected_resultset.alt)
 		})
@@ -564,10 +564,10 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select *, "ds1"."id"` +
-				` from "${ds1.relname()}" as "ds1"` +
-				` left join "${ds2.relname()}" as "ds2"` +
-				` on "ds1"."id" = "ds2"."id"`)
+				`select *, \`ds1\`.\`id\`` +
+				` from \`${ds1.relname()}\` as \`ds1\`` +
+				` left join \`${ds2.relname()}\` as \`ds2\`` +
+				` on \`ds1\`.\`id\` = \`ds2\`.\`id\``)
 
 			return expect_select(q, expected_resultset.left)
 		})
@@ -587,8 +587,8 @@ describe('join', () =>
 
 			expect(q.toQuery())
 			.equal(
-				`select * from "${ds1.relname()}" as "ds1"` +
-				` cross join "${ds2.relname()}" as "ds2"`
+				`select * from \`${ds1.relname()}\` as \`ds1\`` +
+				` cross join \`${ds2.relname()}\` as \`ds2\``
 			)
 		})
 	})
