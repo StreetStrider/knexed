@@ -33,10 +33,10 @@
     "st":    "eslint *.js tx/ table/ query/ test/",
     "t":     "glow || flow",
 
-    "mocha":                 "mocha    --check-leaks --recursive test/**.test.js test/**/*.test.js",
+    "unit":                  "mocha    --check-leaks --recursive test/**.test.js test/**/*.test.js",
     "cover": "istanbul cover _mocha -- --check-leaks --recursive test/**.test.js test/**/*.test.js",
 
-    "test":  "npm run st && npm run t && npm run mocha",
+    "test":  "npm run st && npm run t && npm run unit",
     "all":   "npm test   && npm run cover",
 
     "coveralls": "istanbul-coveralls"
