@@ -16,7 +16,7 @@ describe('upsert', () =>
 		/* @flow-off */
 		var ds = dataset.keyvalue(kx, 'id', { 1: 'a', 2: 'b' })
 
-		ds
+		return ds
 		.then(ds =>
 		{
 			var name = ds.tableName
@@ -41,7 +41,7 @@ describe('upsert', () =>
 		/* @flow-off */
 		var ds = dataset.keyvalue(kx, 'key', { 1: 'x', 2: 'y' })
 
-		ds
+		return ds
 		.then(ds =>
 		{
 			var name = ds.tableName
@@ -69,7 +69,7 @@ describe('upsert', () =>
 		/* @flow-off */
 		var ds = dataset.keyvalue(kx, 'id', { 1: 'a', 2: 'b' })
 
-		ds
+		return ds
 		.then(ds =>
 		{
 			var name = ds.tableName
@@ -93,7 +93,7 @@ describe('upsert', () =>
 		/* @flow-off */
 		var ds = dataset.keyvalue(kx, 'key', { 1: 'x', 2: 'y' })
 
-		ds
+		return ds
 		.then(ds =>
 		{
 			var name = ds.tableName
