@@ -17,6 +17,7 @@ module.exports = function test_error (
 	error =>
 	{
 		expect(error).an('error')
-		expect(error.message).equal(pattern.message)
+		pattern.message && expect(error.message).equal(pattern.message)
+		pattern.constraint && expect(error.constraint).equal(pattern.constraint)
 	})
 }

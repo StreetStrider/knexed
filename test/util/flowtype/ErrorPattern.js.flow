@@ -1,5 +1,6 @@
 
 type ErrorPattern =
 {
-	message: string
+	message?: string,
+	constraint?: string,
 }
