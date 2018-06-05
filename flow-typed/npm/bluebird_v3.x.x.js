@@ -51,6 +51,19 @@ declare type Bluebird$PromisifyAllOptions = {
 
 declare type $Promisable<T> = Promise<T> | T;
 
+declare type Bluebird$ErrorPredicate<T> = Class<T>
+|
+{
+  name?: string,
+  message?: string,
+  constructor?: string,
+  // [key: string]: any,
+}
+|
+Object
+|
+(any) => boolean
+
 declare class Bluebird$Disposable<R> {}
 
 declare class Bluebird$Promise<+R> extends Promise<R> {
@@ -201,18 +214,18 @@ declare class Bluebird$Promise<+R> extends Promise<R> {
   catch(onReject: null | void): Promise<R>;
   catch<U>(onReject?: (error: any) => $Promisable<U>): Bluebird$Promise<U>;
   catch<U, ErrorT: Error>(
-    err: Class<ErrorT>,
+    err: Bluebird$ErrorPredicate<ErrorT>,
     onReject: (error: ErrorT) => $Promisable<U>
   ): Bluebird$Promise<U>;
   catch<U, ErrorT: Error>(
-    err1: Class<ErrorT>,
-    err2: Class<ErrorT>,
+    err1: Bluebird$ErrorPredicate<ErrorT>,
+    err2: Bluebird$ErrorPredicate<ErrorT>,
     onReject: (error: ErrorT) => $Promisable<U>
   ): Bluebird$Promise<U>;
   catch<U, ErrorT: Error>(
-    err1: Class<ErrorT>,
-    err2: Class<ErrorT>,
-    err3: Class<ErrorT>,
+    err1: Bluebird$ErrorPredicate<ErrorT>,
+    err2: Bluebird$ErrorPredicate<ErrorT>,
+    err3: Bluebird$ErrorPredicate<ErrorT>,
     onReject: (error: ErrorT) => $Promisable<U>
   ): Bluebird$Promise<U>;
   caught<U, ErrorT: Error>(
