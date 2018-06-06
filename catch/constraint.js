@@ -9,20 +9,13 @@ declare function catch_constraint (string, any, Function)
 
 */
 
-var rethrow = require('./rethrow')
+var predicate = require('./predicate')
 
 module.exports = catch_constraint
 
 function catch_constraint (constraint, data, wrong)
 {
-	if (arguments.length < 3)
-	{
-		wrong = (data /* :Function */)
+	arguments[0] = { constraint }
 
-		return [ { constraint: constraint }, rethrow(wrong) ]
-	}
-	else
-	{
-		return [ { constraint: constraint }, rethrow(wrong, data) ]
-	}
+	return predicate.apply(this, arguments)
 }

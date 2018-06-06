@@ -9,20 +9,13 @@ declare function catch_error (string, any, Function)
 
 */
 
-var rethrow = require('./rethrow')
+var predicate = require('./predicate')
 
 module.exports = catch_error
 
 function catch_error (message, data, wrong)
 {
-	if (arguments.length < 3)
-	{
-		wrong = (data /* :Function */)
+	arguments[0] = { message }
 
-		return [ { message: message }, rethrow(wrong) ]
-	}
-	else
-	{
-		return [ { message: message }, rethrow(wrong, data) ]
-	}
+	return predicate.apply(this, arguments)
 }
