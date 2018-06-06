@@ -150,6 +150,27 @@ accounts()
 .catch(...catch_constraint({ constraint: 'accounts_pkey' }, { id }, AlreadyExists))
 ```
 
+### guarantee proper updates & deletes (`updated`)
+Will throw is zero or more than one row had been updated.
+```js
+var accounts = table(knex, 'accounts')
+
+/* preventing too many (or zero) rows deletion */
+accounts()
+.delete()
+.then(updated)
+```
+
+```js
+var accounts = table(knex, 'accounts')
+
+/* guarantee one and only one row modification */
+accounts()
+.where('name', 'not found')
+.update('name', 'Not Found')
+.then(updated)
+```
+
 ## flow
 We're providing built-in [Flow](https://flowtype.org/) type definitions.
 
