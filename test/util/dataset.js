@@ -50,7 +50,7 @@ dataset.series = function series
 {
 	var datarange
 	datarange = range(start, end)
-	datarange = datarange.map(n => ({ n: n }))
+	datarange = datarange.map(n => ({ n }))
 
 	return dataset(kx, table => table.integer('n'), datarange)
 }

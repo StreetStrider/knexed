@@ -48,7 +48,7 @@ describe('upsert', () =>
 			var t = table(kx, name)
 			var u = upsert(t,
 			{
-				key: (key) => ({ key: key })
+				key: (key) => ({ key })
 			})
 
 			return u(3, { value: 'z' })
@@ -100,7 +100,7 @@ describe('upsert', () =>
 			var t = table(kx, name)
 			var u = upsert(t,
 			{
-				key: (key) => ({ key: key })
+				key: (key) => ({ key })
 			})
 
 			return u(2, { value: 'z' })

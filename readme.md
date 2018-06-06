@@ -53,7 +53,7 @@ accounts.as('alias', trx).select()
 /* create method */
 var create = method(knex, (trx, name) =>
 {
-   return accounts(trx).insert({ name: name })
+   return accounts(trx).insert({ name })
 })
 
 /* then use it */

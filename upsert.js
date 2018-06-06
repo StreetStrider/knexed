@@ -17,7 +17,7 @@ var exists = require('./exists')
 
 var defaults =
 {
-	key: (id) => ({ id: id }),
+	key: (id) => ({ id }),
 }
 
 module.exports = function upsert /* ::<Key, Data: Object> */

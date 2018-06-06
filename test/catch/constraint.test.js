@@ -56,7 +56,7 @@ describe('constraint', () =>
 
 		function prep_wrong (data)
 		{
-			return { error: 'foo', data: data }
+			return { error: 'foo', data }
 		}
 
 		var id = 17
@@ -74,7 +74,7 @@ describe('constraint', () =>
 			return t()
 			.insert({ id: 1, value: 'c' })
 			.catch(rethrow)
-			.catch(...catch_constraint(constraint, { id: id }, prep_wrong))
+			.catch(...catch_constraint(constraint, { id }, prep_wrong))
 		})
 		.then(() =>
 		{
@@ -84,7 +84,7 @@ describe('constraint', () =>
 		{
 			expect(wrong).an('object')
 			expect(wrong.error).eq('foo')
-			expect(wrong.data).deep.eq({ id: id })
+			expect(wrong.data).deep.eq({ id })
 		})
 	})
 
@@ -109,7 +109,7 @@ describe('constraint', () =>
 			.catch(rethrow)
 			.catch(...catch_constraint('another_constraint', prep_error))
 
-			return test_error({ constraint: constraint }, () => r)
+			return test_error({ constraint }, () => r)
 		})
 	})
 })
