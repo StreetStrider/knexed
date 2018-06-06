@@ -120,6 +120,21 @@ dataset, which means streaming potentially large amount of redundant data from
 database driver to client. In contrast `query/count` & `query/exists`
 works on driver's side, sending to client only simple scalars.
 
+### catch constraints (`catch/constraint`)
+Catch constraints and rethrow them as your model-specific constraint errors.
+```js
+var accounts = table(knex, 'accounts')
+
+function AlreadyExists ()
+{
+	return new TypeError('account_already_exists')
+}
+
+accounts()
+.insert({ id: 1, name: 'account' })
+.catch(...catch_constraint({ constraint: 'accounts_pkey' }, AlreadyExists))
+```
+
 ## flow
 We're providing built-in [Flow](https://flowtype.org/) type definitions.
 
