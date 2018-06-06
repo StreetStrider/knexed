@@ -135,6 +135,21 @@ accounts()
 .catch(...catch_constraint({ constraint: 'accounts_pkey' }, AlreadyExists))
 ```
 
+```js
+var accounts = table(knex, 'accounts')
+
+function AlreadyExists (data)
+{
+	return { error: 'account_already_exists', conflict: data }
+}
+
+var id = 1
+
+accounts()
+.insert({ id, name: 'account' })
+.catch(...catch_constraint({ constraint: 'accounts_pkey' }, { id }, AlreadyExists))
+```
+
 ## flow
 We're providing built-in [Flow](https://flowtype.org/) type definitions.
 
