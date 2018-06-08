@@ -44,7 +44,11 @@
 
   "dependencies":
   {
-    "bluebird": "3"
+    "curry":
+      "1",
+
+    "bluebird":
+      "3"
   },
 
   "devDependencies":

@@ -25,10 +25,11 @@ var slice = [].slice
 var is = require('./is-tx')
 
 var bmethod = require('bluebird').method
+var curry   = require('curry')
 
-var method
- = module.exports
- = function method /* ::<T> */
+var method = module.exports = curry(method_plain)
+
+function method_plain /* ::<T> */
 (
 	kx /* :Knex */,
 	fn /* :$Async$Tx<T> */
@@ -67,3 +68,13 @@ var method
 var NOTX
  = method.NOTX
  = Symbol('NOTX')
+
+/* ::
+
+type $Method
+= (<T>(Knex,     $Async$Tx<T>) => $Async<T>)
+& (<T>(Knex) => ($Async$Tx<T>) => $Async<T>)
+
+declare module.exports: $Method
+
+*/
