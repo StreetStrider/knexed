@@ -176,4 +176,4 @@ We're providing built-in [Flow](https://flowtype.org/) type definitions.
 
 ## license
 MIT.
-© Strider, 2016 — 2018.
+© Strider, 2016 — 2019.
