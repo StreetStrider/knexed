@@ -21,7 +21,7 @@ The lead query builder in JS ecosystem is **Knex**. I don't like it much for poo
 ## API
 Import / require modules you need explicitly. Most of functionality is accessible from the root of the package, like `require('knexed/one')`, `require('knexed/exists')`. Some utilities are bundled into groups by usage, like `require('knexed/table/table')`, `require('knexed/table/join')`. The group of utility is mentioned in the braces below.
 
-### dataset helpers
+### dataset helpers (`./`)
 ```js
 knex('table').select()
 /* build query … */
@@ -49,6 +49,9 @@ accounts.as('alias', trx).select()
 ```
 
 ### transaction helpers (`tx/method`)
+Method helper allows function to both be initial point in transaction, or consecutive.
+If no transaction is passed as first argument, transaction well be initialized automatically.
+If transaction is passed, method will accept it.
 ```js
 /* create method */
 var create = method(knex, (trx, name) =>
@@ -60,6 +63,11 @@ var create = method(knex, (trx, name) =>
 create(trx, 'Name') /* as a part of transaction `trx` */
 create('Name') /* new transaction will be started */
 create(method.NOTX, 'Name') /* if you don't need transaction at all */
+
+/* method can also be curried */
+var m = method(knex)
+
+var create = m((trx, name) => { … })
 ```
 
 ### join helpers (`table/join`)
