@@ -29,7 +29,7 @@ module.exports = function upsert /* ::<Key, Data: Object> */
 	var kx = table.kx
 	var $options /* :Options<Key> */ = assign({}, defaults, options)
 
-	return method(kx, (tx, key /* :Key */, data /* :Data */) =>
+	return method/* ::<Data> */(kx, (tx, key /* :Key */, data /* :Data */) =>
 	{
 		var data_compose = assign($options.key(key), data)
 

@@ -1,5 +1,5 @@
-// flow-typed signature: ce9b944ed3262e5ed19a132343a842df
-// flow-typed version: 1cb1933212/bluebird_v3.x.x/flow_>=v0.70.x
+// flow-typed signature: e0974d6c2c04803a78c4faa3e848c72a
+// flow-typed version: 34fbdaa6f3/bluebird_v3.x.x/flow_>=v0.70.x
 
 type Bluebird$RangeError = Error;
 type Bluebird$CancellationErrors = Error;
@@ -67,11 +67,17 @@ Object
 declare class Bluebird$Disposable<R> {}
 
 declare class Bluebird$Promise<+R> extends Promise<R> {
+  static RangeError: Class<Bluebird$RangeError>;
+  static CancellationErrors: Class<Bluebird$CancellationErrors>;
+  static TimeoutError: Class<Bluebird$TimeoutError>;
+  static RejectionError: Class<Bluebird$RejectionError>;
+  static OperationalError: Class<Bluebird$OperationalError>;
+
   static Defer: Class<Bluebird$Defer>;
   static PromiseInspection: Class<Bluebird$PromiseInspection<*>>;
 
-  static all<T, Elem: $Promisable<T>>(
-    Promises: Iterable<Elem> | $Promisable<Iterable<Elem>>
+  static all<T>(
+    Promises: $Promisable<Iterable<$Promisable<T>>>
   ): Bluebird$Promise<Array<T>>;
   static props(
     input: Object | Map<*, *> | $Promisable<Object | Map<*, *>>
@@ -318,7 +324,7 @@ declare class Bluebird$Promise<+R> extends Promise<R> {
     disposable: Bluebird$Disposable<T>,
     handler: (value: T) => $Promisable<A>
   ): Bluebird$Promise<A>;
-  
+
   suppressUnhandledRejections(): void;
 }
 

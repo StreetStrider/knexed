@@ -31,7 +31,7 @@
   "scripts":
   {
     "st":    "eslint *.js tx/ table/ query/ test/",
-    "t":     "glow || flow",
+    "t":     "flow check",
 
     "unit":                  "mocha    --check-leaks --recursive test/**.test.js test/**/*.test.js",
     "cover": "istanbul cover _mocha -- --check-leaks --recursive test/**.test.js test/**/*.test.js",
@@ -75,7 +75,7 @@
       "1",
 
     "flow-bin":
-      "0.74",
+      "0.98",
 
     "eslint":
       "5",

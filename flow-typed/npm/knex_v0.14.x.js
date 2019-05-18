@@ -3,7 +3,7 @@
 
 declare class Knex$Transaction<R>
   mixins Knex$QueryBuilder<R>, events$EventEmitter, Bluebird$Promise<R>, Promise<R> {
-  $call: (tableName: string) => Knex$QueryBuilder<R>;  
+  [[call]]: (tableName: string) => Knex$QueryBuilder<R>;  
   commit(connection?: any, value?: any): Promise<R>;
   rollback(?Error): Promise<R>;
   savepoint(connection?: any): Promise<R>;
@@ -155,7 +155,7 @@ declare class Knex$Knex<R>
   mixins Knex$QueryBuilder<R>, Bluebird$Promise<R>, Promise<R>, events$EventEmitter {
   static (config: Knex$Config): Knex$Knex<R>;
   static QueryBuilder: typeof Knex$QueryBuilder;
-  $call: (tableName: string) => Knex$QueryBuilder<R>;
+  [[call]]: (tableName: string) => Knex$QueryBuilder<R>;
   raw(sqlString: string, bindings?: Knex$RawBindings): any;
   batchInsert: (tableName: string, rows: Array<Object>, chunkSize?: number) => Knex$QueryBuilder<R>;
   migrate: {
