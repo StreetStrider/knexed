@@ -33,13 +33,13 @@
     "st":    "eslint *.js tx/ table/ query/ test/",
     "t":     "flow check",
 
-    "unit":                  "mocha    --check-leaks --recursive test/**.test.js test/**/*.test.js",
-    "cover": "istanbul cover _mocha -- --check-leaks --recursive test/**.test.js test/**/*.test.js",
+    "unit":  "mocha --check-leaks --recursive test/**.test.js test/**/*.test.js",
+    "cover": "nyc --reporter=lcov --reporter=text-summary npm run unit",
 
     "test":  "npm run st && npm run t && npm run unit",
     "all":   "npm test   && npm run cover",
 
-    "coveralls": "istanbul-coveralls"
+    "coveralls": "cat coverage/lcov.info | coveralls"
   },
 
   "dependencies":
@@ -68,12 +68,6 @@
     "lodash":
       "^4.17.11",
 
-    "istanbul":
-      "0.4",
-
-    "istanbul-coveralls":
-      "1",
-
     "flow-bin":
       "0.98",
 
@@ -81,6 +75,12 @@
       "5",
 
     "js-outlander":
-      "StrangeTransistor/js-outlander#2.5.0"
+      "StrangeTransistor/js-outlander#2.5.0",
+
+    "nyc":
+      "14",
+
+    "coveralls":
+      "3"
   }
 }
