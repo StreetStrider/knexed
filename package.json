@@ -28,6 +28,16 @@
     "knex": ">= 0.10"
   },
 
+  "files":
+  [
+    "/catch/",
+    "/query/",
+    "/table/",
+    "/tx/",
+    "/*.js",
+    "!.eslintrc.js"
+  ],
+
   "scripts":
   {
     "st":    "eslint *.js tx/ table/ query/ test/",
