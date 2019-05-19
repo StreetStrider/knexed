@@ -1,5 +1,7 @@
 /* @flow */
 
+var expect = require('chai').expect
+
 var kx = require('./util/knexconn')()
 var dataset = require('./util/dataset')
 var test_error = require('./util/test-error')
@@ -10,6 +12,23 @@ var updated  = require('../updated')
 
 describe('updated', () =>
 {
+	it('noop if updated', () =>
+	{
+		var ds = dataset.series(kx, 5)
+
+		return ds
+		.then(ds =>
+		{
+				var name = ds.tableName
+				var t = table(kx, name)
+
+				return t()
+				.where('n', '=', 1)
+				.delete()
+				.then(updated)
+				.catch(() => expect(false, 'must not throw knexed error').true)
+		})
+	})
 	it('catches deleting too many rows', () =>
 	{
 		var ds = dataset.series(kx, 5)
