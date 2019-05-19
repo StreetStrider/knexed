@@ -49,7 +49,7 @@ accounts.as('alias', trx).select()
 ```
 
 ### transaction helpers (`tx/method`)
-Method helper allows function to both be initial point in transaction, or consecutive.
+`method` helper allows function to both be initial point in transaction, or consecutive.
 If no transaction is passed as first argument, transaction well be initialized automatically.
 If transaction is passed, method will accept it.
 ```js
