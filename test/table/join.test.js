@@ -637,6 +637,29 @@ describe('join', () =>
 		})
 	})
 
+	it('join with cross join', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+			var ds3 = ready[2]
+
+			var j1 = join.cross(ds1, ds2)
+			var j  = join.cross(j1, ds3)
+
+			var q = j()
+
+			expect(q.toQuery())
+			.equal(
+				`select * from \`${ds1.relname()}\`` +
+				` cross join \`${ds2.relname()}\`` +
+				` cross join \`${ds3.relname()}\``
+			)
+		})
+	})
+
 	it('join works with tx', () =>
 	{
 		return ready_tables
