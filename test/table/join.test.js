@@ -30,34 +30,51 @@ var ds2 = dataset(kx, table =>
 	{ id: 4, id_alt: 3, mark: 'M4' }
 ])
 
+var ds3 = dataset(kx, table =>
+{
+	table.integer('id').primary()
+	table.string('value')
+},
+[
+	{ id: 1, value: 'V1' },
+	{ id: 2, value: 'V2' },
+	{ id: 3, value: 'V3' },
+])
+
 var expected_resultset = {}
 expected_resultset.main =
 [
 	{ id: 1, name: 'FOO', id_alt: 1, mark: 'M1' },
-	{ id: 3, name: 'BAZ', id_alt: 2, mark: 'M3' }
+	{ id: 3, name: 'BAZ', id_alt: 2, mark: 'M3' },
 ]
 expected_resultset.alt =
 [
 	{ id_alt: 1, name: 'FOO', mark: 'M1' },
 	{ id_alt: 2, name: 'BAR', mark: 'M3' },
-	{ id_alt: 3, name: 'BAZ', mark: 'M4' }
+	{ id_alt: 3, name: 'BAZ', mark: 'M4' },
 ]
 expected_resultset.left =
 [
 	{ id: 1, name: 'FOO', id_alt: 1,    mark: 'M1' },
 	{ id: 2, name: 'BAR', id_alt: null, mark: null },
-	{ id: 3, name: 'BAZ', id_alt: 2,    mark: 'M3' }
+	{ id: 3, name: 'BAZ', id_alt: 2,    mark: 'M3' },
+]
+expected_resultset.three =
+[
+	{ id: 1, name: 'FOO', id_alt: 1, mark: 'M1', value: 'V1' },
+	{ id: 3, name: 'BAZ', id_alt: 2, mark: 'M3', value: 'V3' },
 ]
 
 
-var ready = Promise.all([ ds1, ds2 ])
+var ready = Promise.all([ ds1, ds2, ds3 ])
 var ready_tables = ready
 .then(ready =>
 {
 	var ds1 = table(kx, ready[0].tableName)
 	var ds2 = table(kx, ready[1].tableName)
+	var ds3 = table(kx, ready[2].tableName)
 
-	return [ ds1, ds2 ]
+	return [ ds1, ds2, ds3 ]
 })
 
 
@@ -591,6 +608,32 @@ describe('join', () =>
 				`select * from \`${ds1.relname()}\` as \`ds1\`` +
 				` cross join \`${ds2.relname()}\` as \`ds2\``
 			)
+		})
+	})
+
+	it('join with join', () =>
+	{
+		return ready_tables
+		.then(ready =>
+		{
+			var ds1 = ready[0]
+			var ds2 = ready[1]
+			var ds3 = ready[2]
+
+			var j1 = join(ds1, ds2, 'id')
+			var j  = join(j1, ds3, 'id')
+
+			var q = j()
+
+			expect(q.toQuery())
+			.equal(
+			`select * from \`${ds1.relname()}\`` +
+			` inner join \`${ds2.relname()}\`` +
+			` on \`${ds1.relname()}\`.\`id\` = \`${ds2.relname()}\`.\`id\`` +
+			` inner join \`${ds3.relname()}\`` +
+			` on \`${ds1.relname()}\`.\`id\` = \`${ds3.relname()}\`.\`id\``)
+
+			return expect_select(q, expected_resultset.three)
 		})
 	})
 

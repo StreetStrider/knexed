@@ -4,7 +4,7 @@
 import type { TableFn, Table } from '../table/table'
 import type { Knex$Transaction$Optional } from '../tx/method'
 
-type Join = TableFn
+type Join = Table
 
 type TableRef
 = Alias
@@ -39,7 +39,7 @@ function join_by_type (join_type /* :string */)
 {
 	return function join
 	(
-		left  /* :TableRef */,
+		left  /* :TableRef | Join */,
 		right /* :TableRef */,
 		predicate /* :Predicate */
 	)
@@ -53,7 +53,7 @@ function join_by_type (join_type /* :string */)
 
 		var $predicate = compile_predicate(asL, asR, predicate)
 
-		return (tx /* :Knex$Transaction$Optional<any> */) =>
+		function $join (tx /* :Knex$Transaction$Optional<any> */)
 		{
 			return tableL
 			.as(asL, tx)[join_type](
@@ -61,6 +61,10 @@ function join_by_type (join_type /* :string */)
 				$predicate[0], $predicate[1], $predicate[2]
 			)
 		}
+
+		table_like($join, tableL.kx, asL)
+
+		return $join
 	}
 }
 
@@ -74,12 +78,16 @@ join.cross = function cross_join (left /* :TableRef */, right /* :TableRef */)
 	var asL = pick_actual_alias(left)
 	var asR = pick_actual_alias(right)
 
-	return (tx /* :Knex$Transaction$Optional<any> */) =>
+	function $join (tx /* :Knex$Transaction$Optional<any> */)
 	{
 		return tableL
 		.as(asL, tx)
 		.crossJoin(tableR.relname(asR))
 	}
+
+	table_like($join, tableL.kx, asL)
+
+	return $join
 }
 
 
@@ -145,4 +153,15 @@ function compile_predicate
 	}
 
 	throw new TypeError('knexed/join/wrong-predicate')
+}
+
+
+function table_like ($join, kx, relname)
+{
+	$join.kx = kx
+	$join.relname = () => relname
+	/* @flow-off */
+	$join.as = (...args) => $join(...args.slice(1))
+	/* @flow-off */
+	$join.toString = () => $join.relname()
 }
