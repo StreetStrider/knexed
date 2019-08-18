@@ -107,6 +107,15 @@ join(accounts, messages, 'id')
    this will also pick proper aliases on join predicate
  */
 join([ accounts, 'A' ], [ messages, 'M' ], [ 'id', 'user_id' ])
+
+/*
+ * multi-stage join is possible, by passing
+ * join as the left argument in join().
+ * different types of joins are supported
+ */
+var messages_read = table(knex, 'messages_read')
+var messages$read = join.left(messages, messages_read, 'id')
+var accounts$messages$read = join(messages$read, accounts, [ 'user_id', 'id' ])
 ```
 
 ### query helpers (`query`)
