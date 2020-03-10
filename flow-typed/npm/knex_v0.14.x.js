@@ -90,6 +90,7 @@ declare class Knex$QueryBuilder<R> mixins Bluebird$Promise<R>, Promise<R> {
   crossJoin(column: string, c1: string, c2: string): this;
   crossJoin(column: string, c1: string, operator: string, c2: string): this;
   crossJoin(table: string, builder: Knex$QueryBuilderFn<R>): this;
+  crossJoin(table: string): this;
   joinRaw(sql: string, bindings?: Knex$RawBindings): this;
   distinct(): this;
   groupBy(column: string): this;

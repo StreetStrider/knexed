@@ -1,7 +1,7 @@
 /* @flow */
 /* ::
 
-import type { TableFn, Table } from '../table/table'
+import type { Table } from '../table/table'
 import type { Knex$Transaction$Optional } from '../tx/method'
 
 type Join = Table
@@ -16,6 +16,8 @@ export type Predicate
 = [ string, Operator, string ]
 | [ string, string ]
 |   string
+
+type JoinType = 'innerJoin' | 'leftJoin' | 'rightJoin' | 'fullOuterJoin'
 
 type Operator
 = '='
@@ -35,7 +37,7 @@ join.right = join_by_type('rightJoin')
 join.full  = join_by_type('fullOuterJoin')
 
 
-function join_by_type (join_type /* :string */)
+function join_by_type (join_type /* :JoinType */)
 {
 	return function join
 	(
@@ -56,6 +58,7 @@ function join_by_type (join_type /* :string */)
 		function $join (tx /* :Knex$Transaction$Optional<any> */)
 		{
 			return tableL
+			/* @flow-off */
 			.as(asL, tx)[join_type](
 				tableR.relname(asR),
 				$predicate[0], $predicate[1], $predicate[2]

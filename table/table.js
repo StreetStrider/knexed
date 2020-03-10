@@ -6,13 +6,9 @@ import type { $QueryBuilder } from 'knex'
 
 import type { Knex$Transaction$Optional } from '../tx/method'
 
-export type TableFn = (tx :Knex$Transaction$Optional<any>)
-=> $QueryBuilder<any>;
-
-export type Table
-= TableFn
-&
+export type Table =
 {
+  (tx :Knex$Transaction$Optional<any>): $QueryBuilder<any>,
   as(alias :?string, tx :Knex$Transaction$Optional<any>): $QueryBuilder<any>,
 
   relname(alias :?string): string,
