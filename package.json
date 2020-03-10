@@ -82,10 +82,10 @@
       "0.98",
 
     "eslint":
-      "5",
+      "6",
 
     "js-outlander":
-      "StrangeTransistor/js-outlander#2.5.0",
+      "StrangeTransistor/js-outlander#2.6.1",
 
     "nyc":
       "14",
