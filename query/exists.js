@@ -6,7 +6,7 @@ import type { $QueryBuilder } from 'knex'
 */
 
 module.exports = function exists (query /* :$QueryBuilder<any> */)
-	/* :Bluebird$Promise<boolean> */
+	/* :Promise<boolean> */
 {
 	var client = query.client
 	var qb = client.queryBuilder()

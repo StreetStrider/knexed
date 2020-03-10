@@ -10,13 +10,13 @@ export type Knex$Transaction$Optional<T>
 | Symbol // NOTX
 
 export type $Async<T>
-= (...args: Array<any>) => Bluebird$Promise<T>
+= (...args: Array<any>) => Promise<T>
 
 export type $Async$Tx<T>
 = (tx: Knex$Transaction<T>, ...args: Array<any>) => $Promisable<T>
 
 export type $Async$Tx$Strict<T>
-= (tx: Knex$Transaction<T>, ...args: Array<any>) => Bluebird$Promise<T>
+= (tx: Knex$Transaction<T>, ...args: Array<any>) => Promise<T>
 
 */
 
@@ -24,8 +24,7 @@ var slice = [].slice
 
 var is = require('./is-tx')
 
-var bmethod = require('bluebird').method
-var curry   = require('curry')
+var curry = require('curry')
 
 var method = module.exports = curry(method_plain)
 
@@ -36,14 +35,14 @@ function method_plain /* ::<T> */
 )
 	/* :$Async<T> */
 {
-	var fn$ /* :$Async$Tx$Strict<T> */ = bmethod(fn)
+	var fn$ /* :$Async$Tx$Strict<T> */ = capture(fn)
 
 	return function
 	(
 		tx /* :Knex$Transaction$Optional<T> */
 		/* ::, ...args: Array<any> */
 	)
-		/* :Bluebird$Promise<T> */
+		/* :Promise<T> */
 	{
 		if (is(tx))
 		{
@@ -78,3 +77,14 @@ type $Method
 declare module.exports: $Method
 
 */
+
+function capture /* ::<T> */ (fn /* :$Async$Tx<T> */) /* :$Async$Tx$Strict<T> */
+{
+	return (...args) =>
+	{
+		return new Promise(rs =>
+		{
+			rs(fn(...args))
+		})
+	}
+}
