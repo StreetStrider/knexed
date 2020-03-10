@@ -44,7 +44,7 @@
     "t":     "flow check",
 
     "unit":  "mocha --exit --check-leaks --recursive test/**.test.js test/**/*.test.js",
-    "cover": "nyc --reporter=lcov --reporter=text-summary npm run unit",
+    "cover": "c8 --reporter=lcov --reporter=text-summary npm run unit",
 
     "test":  "npm run st && npm run t && npm run unit",
     "all":   "npm test   && npm run cover",
@@ -87,8 +87,8 @@
     "js-outlander":
       "StrangeTransistor/js-outlander#2.6.1",
 
-    "nyc":
-      "14",
+    "c8":
+      "7",
 
     "coveralls":
       "3"
