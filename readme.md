@@ -149,7 +149,7 @@ function AlreadyExists ()
 
 accounts()
 .insert({ id: 1, name: 'account' })
-.catch(...catch_constraint('accounts_pkey', AlreadyExists))
+.catch(catch_constraint('accounts_pkey', AlreadyExists))
 ```
 
 ```js
@@ -164,7 +164,7 @@ var id = 1
 
 accounts()
 .insert({ id, name: 'account' })
-.catch(...catch_constraint('accounts_pkey', { id }, AlreadyExists))
+.catch(catch_constraint('accounts_pkey', { id }, AlreadyExists))
 ```
 
 ### guarantee proper updates & deletes (`updated`)

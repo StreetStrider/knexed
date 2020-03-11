@@ -1,21 +1,26 @@
 /* @flow */
 /* ::
 
-declare function catch_constraint (string, Function)
-: [ { constraint: string }, () => void ]
+declare function catch_constraint (string, Function): () => void
 
-declare function catch_constraint (string, any, Function)
-: [ { constraint: string }, () => void ]
+declare function catch_constraint (string, any, Function): () => void
 
 */
 
-var predicate = require('./predicate')
+var slice = [].slice
+
+var rethrow = require('./rethrow')
 
 module.exports = catch_constraint
 
 function catch_constraint (constraint, data, wrong)
 {
-	arguments[0] = { constraint }
+	var args = slice.call(arguments, 1).reverse()
 
-	return predicate.apply(this, arguments)
+	return (error) =>
+	{
+		if (Object(error).constraint !== constraint) { throw error }
+
+		rethrow(...args)
+	}
 }

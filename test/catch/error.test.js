@@ -33,7 +33,7 @@ describe('error', () =>
 
 			return t()
 			.insert({ id: 1, value: 'c' })
-			.catch(...catch_error(constraint, prep_error))
+			.catch(catch_error(constraint, prep_error))
 		})
 
 		return test_error({ message: 'foo' }, () => r)
@@ -63,7 +63,7 @@ describe('error', () =>
 
 			return t()
 			.insert({ id: 1, value: 'c' })
-			.catch(...catch_error(constraint, { id }, prep_wrong))
+			.catch(catch_error(constraint, { id }, prep_wrong))
 		})
 		.then(() =>
 		{
@@ -95,7 +95,7 @@ describe('error', () =>
 
 			var r = t()
 			.insert({ id: 1, value: 'c' })
-			.catch(...catch_error('another_error', prep_error))
+			.catch(catch_error('another_error', prep_error))
 
 			return test_error({ error }, () => r)
 		})

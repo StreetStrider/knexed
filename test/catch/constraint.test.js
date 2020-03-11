@@ -43,7 +43,7 @@ describe('constraint', () =>
 			return t()
 			.insert({ id: 1, value: 'c' })
 			.catch(rethrow)
-			.catch(...catch_constraint(constraint, prep_error))
+			.catch(catch_constraint(constraint, prep_error))
 		})
 
 		return test_error({ message: 'foo' }, () => r)
@@ -74,7 +74,7 @@ describe('constraint', () =>
 			return t()
 			.insert({ id: 1, value: 'c' })
 			.catch(rethrow)
-			.catch(...catch_constraint(constraint, { id }, prep_wrong))
+			.catch(catch_constraint(constraint, { id }, prep_wrong))
 		})
 		.then(() =>
 		{
@@ -107,7 +107,7 @@ describe('constraint', () =>
 			var r = t()
 			.insert({ id: 1, value: 'c' })
 			.catch(rethrow)
-			.catch(...catch_constraint('another_constraint', prep_error))
+			.catch(catch_constraint('another_constraint', prep_error))
 
 			return test_error({ constraint }, () => r)
 		})
