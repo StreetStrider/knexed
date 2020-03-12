@@ -1,9 +1,9 @@
 /* @flow */
 /* ::
 
-declare function catch_error (string, Function): () => void
+declare function catch_error (string, Function): () => void;
 
-declare function catch_error (string, any, Function): () => void
+declare function catch_error (string, any, Function): () => void;
 
 */
 
@@ -13,6 +13,7 @@ var rethrow = require('./rethrow')
 
 module.exports = catch_error
 
+// eslint-disable-next-line no-unused-vars
 function catch_error (message, data, wrong)
 {
 	var args = slice.call(arguments, 1).reverse()

@@ -40,7 +40,7 @@
 
   "scripts":
   {
-    "st":    "eslint *.js tx/ table/ query/ test/",
+    "st":    "eslint .",
     "t":     "flow check",
 
     "unit":  "mocha --exit --check-leaks --recursive test/**.test.js test/**/*.test.js",
