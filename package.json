@@ -4,7 +4,7 @@
 
   "description": "Knex utilities",
 
-  "license":    "MIT",
+  "license":    "ISC",
   "author":     "Strider <strange.transistor@gmail.com>",
   "repository": "StreetStrider/knexed",
 
