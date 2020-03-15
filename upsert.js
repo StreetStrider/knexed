@@ -15,10 +15,12 @@ var assign = Object.assign
 var method = require('./tx/method')
 var exists = require('./exists')
 
+
 var defaults =
 {
 	key: (id) => ({ id }),
 }
+
 
 module.exports = function upsert /* ::<Key, Data: Object> */
 (
@@ -27,7 +29,7 @@ module.exports = function upsert /* ::<Key, Data: Object> */
 )
 {
 	var kx = table.kx
-	var $options /* :Options<Key> */ = assign({}, defaults, options)
+	var $options /* :Options<Key> */ = { ...defaults, ...options }
 
 	return method/* ::<Data> */(kx, (tx, key /* :Key */, data /* :Data */) =>
 	{

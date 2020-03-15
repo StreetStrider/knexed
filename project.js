@@ -1,6 +1,5 @@
 /* @flow */
 
-var extend = Object.assign
 
 module.exports = function project (key /* :string */)
 {
@@ -31,7 +30,7 @@ module.exports = function project (key /* :string */)
 				throw TypeError('knexed/project/keyval-duplicate')
 			}
 
-			var value = extend({}, row)
+			var value = { ...row }
 
 			delete value[key]
 
