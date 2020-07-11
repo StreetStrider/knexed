@@ -81,7 +81,5 @@ function transacted
 	}
 
 	/* @flow-off */
-	/* :: tx = (tx :Knex$Transaction$Optional<any>) */
-
-	return q.transacting(tx)
+	return q.transacting((tx /* :Knex$Transaction<any> */))
 }
