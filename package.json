@@ -79,10 +79,10 @@
       "0.120",
 
     "eslint":
-      "6",
+      "7",
 
     "js-outlander":
-      "StrangeTransistor/js-outlander#2.6.1",
+      "StrangeTransistor/js-outlander#2.8.0",
 
     "c8":
       "7",
